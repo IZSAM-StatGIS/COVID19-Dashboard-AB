@@ -1,0 +1,27 @@
+/** MY STYLES VARIABLES
+    **********************
+*/
+@import './partials/variables';
+
+/** BOOTSTRAP SASS MODULES 
+    **********************
+*/
+.card-header { padding:0.5rem 1.25rem !important; }
+
+// Overrides
+$theme-colors: (
+  "primary": $app-base-color,
+  "secondary": #5F497F,
+  "info-dark": #3F729B,
+  "warning-dark":#FF8800,
+  "warning-darker":#e65100,
+  "danger-dark":#c62828
+);
+// Vendor
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+/** MY STYLES
+    **********************
+*/
+@import './partials/base';
+@import './partials/map';

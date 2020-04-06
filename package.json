@@ -1,0 +1,38 @@
+{
+  "name": "COVID19-Dashboard-AB",
+  "version": "1.0.0",
+  "description": "Dashboard app per l'esplorazione dei dati sulla diffusione del SARS-CoV-2 in Abruzzo",
+  "main": "app.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build --public-url . index.html --no-cache --no-source-maps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IZSAM-StatGIS/COVID19-Dashboard-AB.git"
+  },
+  "keywords": [
+    "COVID-19",
+    "IZSAM",
+    "Teramo",
+    "COVEPI"
+  ],
+  "author": "Alessio Di Lorenzo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IZSAM-StatGIS/COVID19-Dashboard-AB/issues"
+  },
+  "homepage": "https://github.com/IZSAM-StatGIS/COVID19-Dashboard-AB#readme",
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "parcel-plugin-html-partials": "0.0.6",
+    "sass": "^1.26.3"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "bootstrap": "^4.4.1",
+    "material-design-icons": "^3.0.1",
+    "moment": "^2.24.0",
+    "ol": "^6.3.1"
+  }
+}
