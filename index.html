@@ -38,8 +38,60 @@
             <div class="card-body"></div>
         </div>
         <div id="widget-two" class="card bg-dark text-white custom-shadow">
-            <div class="card-header"><i class="fab fa-elementor fa-lg fa-fw"></i> Widget Box 2</div>
-            <div class="card-body"></div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Tab navs -->
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#reg-chart-tab" data-toggle="tab">
+                                    <i class="fas fa-chart-line"></i> Andamento giornaliero
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#new-chart-tab" data-toggle="tab">
+                                    <i class="fas fa-chart-line"></i> Casi per 100K abitanti 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#total-chart-tab" data-toggle="tab">
+                                    <i class="fas fa-chart-pie"></i> Ospedalizzazione 
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="reg-chart-tab" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
+                                    <div class="card-body">
+                                        <div>
+                                        <canvas id="grafico-andamento-nazionale"></canvas>
+                                        </div>
+                                        <div>
+                                        <canvas id="grafico-andamento-abruzzo"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="total-chart-tab" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
+                                    <div class="card-body chart-container">
+                                        aaaaaaaa
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="new-chart-tab" role="tabpanel" aria-labelledby="messages-tab">
+                                <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
+                                    <div class="card-body chart-container">
+                                        sasfdsf
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
     <!-- Close Main -->
@@ -47,7 +99,9 @@
     <!-- Footer -->
     <div id="footer" class="navbar fixed-bottom navbar-expand-lg navbar-dark custom-shadow">
         <div class="navbar-brand">
-            <small><i class="fab fa-elementor fa-lg fa-fw"></i> Footer</small>
+            <small><i class="far fa-copyright fa-lg fa-fw"></i> 
+                Fonte: <a href="http://www.protezionecivile.gov.it/" target="_blank" class="text-warning">Sito del Dipartimento della Protezione Civile - Presidenza del Consiglio dei Ministri</a>
+            </small>
         </div>
     </div>
     <!-- Close Footer -->

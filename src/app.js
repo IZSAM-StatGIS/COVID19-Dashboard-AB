@@ -1,4 +1,7 @@
 import './scss/main.scss'
 import '@fortawesome/fontawesome-free/js/all'
 import 'material-design-icons/iconfont/material-icons.css'
+import $ from 'jquery'
+import 'popper.js'
+import 'bootstrap'
 import './js/map'
