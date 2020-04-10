@@ -10,35 +10,34 @@ const andamentoChartNazFn = function(data){
     var nuovi_positivi = []
     var bullettin_dates = []
 
-    data.forEach((d,i) =>{
+    data.forEach(d =>{
         nuovi_positivi.push(d.nuovi_positivi) 
         bullettin_dates.push(moment(d.data).format('DD MMM'))
     });
 
-    
-    
-    var avg = movingAvg(nuovi_positivi)
-    console.log(avg)
-
     var datasets = [{
         label: 'Nuovi positivi',
         lineTension: 0,
-        backgroundColor: '#ff4444',
-        pointBackgroundColor: '#ff4444',
+        borderWidth:2,
         borderColor: '#ff4444',
+        pointBackgroundColor: '#ff4444',
         pointBorderColor: '#ff4444',
         data: nuovi_positivi,
         fill: false
     },{
         label: 'Media mobile',
         lineTension: 0,
-        backgroundColor: '#CC0000',
-        pointBackgroundColor: '#CC0000',
-        borderColor: '#CC0000',
-        pointBorderColor:'#CC0000',
+        borderDash: [5,10],
+        borderWidth:2,
+        borderColor: '#ff4444',
+        pointRadius:2,
+        pointBackgroundColor: '#ff4444',
+        pointBorderColor:'#ff4444',
         data: movingAvg(nuovi_positivi),
         fill: false
     }]
+
+    console.log(movingAvg(nuovi_positivi))
 
     // Grafico
 	var ctx = document.getElementById('grafico-andamento-nazionale').getContext('2d');
@@ -85,12 +84,10 @@ const andamentoChartNazFn = function(data){
 }
 
 
-
 var andamentoAbruzzoChart;
 
 const andamentoChartAbrFn = function(data){
     // console.log(data.features)
-
     var nuovi_positivi = []
     var bullettin_dates = []
 
@@ -102,19 +99,21 @@ const andamentoChartAbrFn = function(data){
     var datasets = [{
         label: 'Nuovi positivi',
         lineTension: 0,
-        backgroundColor: '#ff4444',
-        pointBackgroundColor: '#ff4444',
-        borderColor: '#ff4444',
-        pointBorderColor: '#ff4444',
+        borderWidth:2,
+        borderColor: '#0099CC',
+        pointBackgroundColor: '#0099CC',
+        pointBorderColor: '#0099CC',
         data: nuovi_positivi,
         fill: false
     },{
         label: 'Media mobile',
         lineTension: 0,
-        backgroundColor: '#CC0000',
-        pointBackgroundColor: '#CC0000',
-        borderColor: '#CC0000',
-        pointBorderColor:'#CC0000',
+        borderDash: [5,10],
+        borderWidth:2,
+        borderColor: '#0099CC',
+        pointRadius:2,
+        pointBackgroundColor: '#0099CC',
+        pointBorderColor:'#0099CC',
         data: movingAvg(nuovi_positivi),
         fill: false
     }]
@@ -163,21 +162,22 @@ const andamentoChartAbrFn = function(data){
 
 }
 
+// Moving Average function
 const movingAvg = function(array){
     var prevArray = [], nextArray = []
     var result = []
 
     for (var i=0; i <= array.length; i++){
         if (i >= 3) {
-            var prevValuesMean = ( array[i-3] + array[i-2] + array[i-1] ) / 3
+            var prevValuesMean = ( array[i-3] + array[i-2] + array[i-1] )
             prevArray.push(prevValuesMean)
         } 
         if (i <= array.length - 3) {
-            var nextValuesMean = ( array[i+3] + array[i+2] + array[i+1] ) / 3
+            var nextValuesMean = ( array[i+3] + array[i+2] + array[i+1] )
             nextArray.push(nextValuesMean)
         }
         
-        result.push((prevValuesMean + array[i] + nextValuesMean)/3)
+        result.push((prevValuesMean + array[i] + nextValuesMean)/7)
         
     }  
     return result
