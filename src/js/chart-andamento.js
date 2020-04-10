@@ -23,7 +23,7 @@ const andamentoChartNazFn = function(data){
         pointBackgroundColor: '#ff4444',
         pointBorderColor: '#ff4444',
         data: nuovi_positivi,
-        fill: false
+        fill: 'rgba(255,255,255,0.1)'
     },{
         label: 'Media mobile',
         lineTension: 0,
@@ -34,10 +34,8 @@ const andamentoChartNazFn = function(data){
         pointBackgroundColor: '#ff4444',
         pointBorderColor:'#ff4444',
         data: movingAvg(nuovi_positivi),
-        fill: false
+        fill: 'rgba(255,255,255,0.1)'
     }]
-
-    console.log(movingAvg(nuovi_positivi))
 
     // Grafico
 	var ctx = document.getElementById('grafico-andamento-nazionale').getContext('2d');
@@ -83,7 +81,6 @@ const andamentoChartNazFn = function(data){
 
 }
 
-
 var andamentoAbruzzoChart;
 
 const andamentoChartAbrFn = function(data){
@@ -104,7 +101,7 @@ const andamentoChartAbrFn = function(data){
         pointBackgroundColor: '#0099CC',
         pointBorderColor: '#0099CC',
         data: nuovi_positivi,
-        fill: false
+        fill: 'rgba(255,255,255,0.1)'
     },{
         label: 'Media mobile',
         lineTension: 0,
@@ -115,7 +112,7 @@ const andamentoChartAbrFn = function(data){
         pointBackgroundColor: '#0099CC',
         pointBorderColor:'#0099CC',
         data: movingAvg(nuovi_positivi),
-        fill: false
+        fill: 'rgba(255,255,255,0.1)'
     }]
 
     // Grafico
@@ -141,7 +138,8 @@ const andamentoChartAbrFn = function(data){
                 display:true,
                 position: 'top',
                 labels:{
-                    fontColor:'#bdbdbd'
+                    fontColor:'#bdbdbd',
+                    // boxWidth:60
                 }
             },
             scales: {

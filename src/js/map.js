@@ -19,6 +19,8 @@ import moment from 'moment';
 import chroma from 'chroma-js';
 
 import { andamentoChartNazFn, andamentoChartAbrFn } from './chart-andamento'
+import { casiChartNazFn, casiChartAbrFn } from './chart-totale-casi-100k'
+import { hospitalChartFn } from './chart-ospedalizzazione'
 
 // Cluster Style
 var getClusterLabel = function(feature){
@@ -45,45 +47,44 @@ var clusterStyle = function(feature){
     } else if (casi >= 51 && casi <=100){
         radius = 8
     } else if (casi >= 101 && casi <=250){
-            radius = 20
+        radius = 20
     } else if (casi >= 251 && casi <= 500){
-            radius = 25
-        } else if (casi >= 501 && casi <= 1000) {
-            radius = 30
-        } else if (casi >= 1001 && casi <= 2000) {
-            radius = 35
-        } else if (casi >= 2001 && casi <= 3500) {
-            radius = 40
-        } else {
-            radius = 45
-        }
+        radius = 25
+    } else if (casi >= 501 && casi <= 1000) {
+        radius = 30
+    } else if (casi >= 1001 && casi <= 2000) {
+        radius = 35
+    } else if (casi >= 2001 && casi <= 3500) {
+        radius = 40
+    } else {
+        radius = 45
+    }
         
-        var cluster = new Style({
-            image: new Circle({
-                radius: radius * zoomlevel * 0.18,
-                fill: fill,
+    var cluster = new Style({
+        image: new Circle({
+            radius: radius * zoomlevel * 0.18,
+            fill: fill,
 	            stroke: stroke
-            })
-        });
-
-        var label = new Style({
-            text: new Text({
-		        textAlign: 'center',
-		        textBaseline: 'middle',
-		        font: '10px Verdana',
-		        overflow:false,
-                text: feature.get('totale_casi').toString(),
-		        fill: new Fill({color: '#000'}),
-		        stroke: new Stroke({color: '#FFF', width: 3})
-		     })
         })
+    });
 
-        if (zoomlevel > 7){
-            return [cluster, label] 
-        } else {
-            return cluster
-        }
-	
+    var label = new Style({
+        text: new Text({
+		    textAlign: 'center',
+		    textBaseline: 'middle',
+		    font: '10px Verdana',
+		    overflow:false,
+            text: feature.get('totale_casi').toString(),
+		    fill: new Fill({color: '#000'}),
+		    stroke: new Stroke({color: '#FFF', width: 3})
+		})
+    })
+
+    if (zoomlevel > 7){
+        return [cluster, label] 
+    } else {
+        return cluster
+    }
 };
 
 // Map
@@ -147,9 +148,11 @@ const apiUrl = "https://covid19-it-api.herokuapp.com"
 
 // Get COVID19 Summary Data
 // ************************************************************
-
+var aggiornamento = "";
 axios.get(apiUrl+'/andamento',{ params:{} }).then(function(response){
-    var aggiornamento = response.data[0].data;
+    aggiornamento = response.data[0].data;
+    // Populate aggiornamento info box
+    document.querySelector('#aggiornamento').innerHTML = moment(aggiornamento).format('DD MMM YYYY')
     // Populate region distribution and cluster layers
     getProvincesDistribution(aggiornamento)
     // Populate trend charts
@@ -165,6 +168,30 @@ axios.get(apiUrl+'/regioni',{
     // Populate trend chart 
     andamentoChartAbrFn(response.data)
 })
+
+// Get COVID19 Summary Data for Italy
+// ************************************************************
+axios.get(apiUrl+'/regioni',{ params:{}}).then(function(response){
+    // Populate trend chart 
+    casiChartNazFn(response.data)
+})
+
+// Get COVID19 Provinces Data for Abruzzo
+// ************************************************************
+axios.get(apiUrl+'/province',{ params:{ cod_reg: 13 }}).then(function(response){
+    var chartData = []
+    response.data.features.forEach(feature => {
+        chartData.push(feature.properties)
+    })
+    // trend Chart for Each Province
+    casiChartAbrFn(chartData)
+})
+
+// Hospital Charts
+setTimeout(function(){ hospitalChartFn('13','Abruzzo', 'grafico-hosp-abruzzo',) }, 500)
+setTimeout(function(){ hospitalChartFn('08','Emilia-Romagna', 'grafico-hosp-emilia') }, 500)
+setTimeout(function(){ hospitalChartFn('05','Veneto', 'grafico-hosp-veneto') }, 500)
+setTimeout(function(){ hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia') }, 500)
 
 // Get COVID19 Provinces Data
 // ************************************************************

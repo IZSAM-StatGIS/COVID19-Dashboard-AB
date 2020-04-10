@@ -34,9 +34,11 @@
     <div id="map" class="custom-shadow"></div>
     <div id="sidebar" class="p-0">
         
-        <div id="widget-one" class="card bg-dark text-white custom-shadow">
-            <div class="card-header"><i class="fab fa-elementor fa-lg fa-fw"></i> Widget Box 1</div>
-            <div class="card-body"></div>
+        <div id="widget-one" class="card bg-info-dark text-white custom-shadow">
+            <!-- div class="card-header"><i class="fab fa-elementor fa-lg fa-fw"></i> Widget Box 1</div -->
+            <div class="card-body" style="font-size:26px;">
+                <i class="fas fa-calendar-alt fa-lg"></i> Aggiornamento: <span id="aggiornamento">...</span>
+            </div>
         </div>
 
         <div id="widget-two" class="card bg-dark text-white custom-shadow">
@@ -46,24 +48,24 @@
                         <!-- Tab navs -->
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#reg-chart-tab" data-toggle="tab">
+                                <a class="nav-link active" href="#andamento-chart-tab" data-toggle="tab">
                                     <i class="fas fa-chart-line"></i> Andamento giornaliero
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#new-chart-tab" data-toggle="tab">
+                                <a class="nav-link" href="#casi-chart-tab" data-toggle="tab">
                                     <i class="fas fa-chart-line"></i> Casi per 100K abitanti 
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#total-chart-tab" data-toggle="tab">
+                                <a class="nav-link" href="#hospitals-chart-tab" data-toggle="tab">
                                     <i class="fas fa-chart-pie"></i> Ospedalizzazione 
                                 </a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane active" id="reg-chart-tab" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane active" id="andamento-chart-tab" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
                                     <div class="card-body chart-grid">
                                         <div>
@@ -75,17 +77,34 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="total-chart-tab" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="tab-pane" id="casi-chart-tab" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
-                                    <div class="card-body chart-container">
-                                        aaaaaaaa
+                                    <div class="card-body chart-grid">
+                                        <div>
+                                            <canvas id="grafico-casi-nazionale"></canvas>
+                                        </div>
+                                        <div>
+                                            <canvas id="grafico-casi-abruzzo"></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="new-chart-tab" role="tabpanel" aria-labelledby="messages-tab">
+                            <div class="tab-pane" id="hospitals-chart-tab" role="tabpanel" aria-labelledby="messages-tab">
                                 <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
-                                    <div class="card-body chart-container">
-                                        sasfdsf
+                                    <div class="card-body chart-grid-quad">
+                                        
+                                        <div>
+                                            <canvas id="grafico-hosp-abruzzo"></canvas>
+                                        </div>
+                                        <div>
+                                            <canvas id="grafico-hosp-emilia"></canvas>
+                                        </div>
+                                        <div>
+                                            <canvas id="grafico-hosp-veneto"></canvas>
+                                        </div>
+                                        <div>
+                                            <canvas id="grafico-hosp-lombardia"></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
