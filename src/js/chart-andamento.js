@@ -7,33 +7,36 @@ const andamentoChartNazFn = function(data){
     // console.log(data)
     data.reverse()
 
-    var total_cases = []
-    var positive = []
+    var nuovi_positivi = []
     var bullettin_dates = []
 
-    data.forEach(d =>{
-        total_cases.push(d.totale_casi) 
-        positive.push(d.totale_positivi)
+    data.forEach((d,i) =>{
+        nuovi_positivi.push(d.nuovi_positivi) 
         bullettin_dates.push(moment(d.data).format('DD MMM'))
     });
 
+    
+    
+    var avg = movingAvg(nuovi_positivi)
+    console.log(avg)
+
     var datasets = [{
-        label: 'Contagiati',
+        label: 'Nuovi positivi',
         lineTension: 0,
         backgroundColor: '#ff4444',
         pointBackgroundColor: '#ff4444',
         borderColor: '#ff4444',
         pointBorderColor: '#ff4444',
-        data: total_cases,
+        data: nuovi_positivi,
         fill: false
     },{
-        label: 'Media mobile a 7 gg',
+        label: 'Media mobile',
         lineTension: 0,
         backgroundColor: '#CC0000',
         pointBackgroundColor: '#CC0000',
         borderColor: '#CC0000',
         pointBorderColor:'#CC0000',
-        data: positive,
+        data: movingAvg(nuovi_positivi),
         fill: false
     }]
 
@@ -86,35 +89,33 @@ const andamentoChartNazFn = function(data){
 var andamentoAbruzzoChart;
 
 const andamentoChartAbrFn = function(data){
-    console.log(data.features)
+    // console.log(data.features)
 
-    var total_cases = []
-    var positive = []
+    var nuovi_positivi = []
     var bullettin_dates = []
 
     data.features.forEach(d =>{
-        total_cases.push(d.properties.totale_casi) 
-        positive.push(d.properties.totale_positivi)
+        nuovi_positivi.push(d.properties.nuovi_positivi) 
         bullettin_dates.push(moment(d.properties.data).format('DD MMM'))
     });
 
     var datasets = [{
-        label: 'Contagiati',
+        label: 'Nuovi positivi',
         lineTension: 0,
         backgroundColor: '#ff4444',
         pointBackgroundColor: '#ff4444',
         borderColor: '#ff4444',
         pointBorderColor: '#ff4444',
-        data: total_cases,
+        data: nuovi_positivi,
         fill: false
     },{
-        label: 'Media mobile a 7 gg',
+        label: 'Media mobile',
         lineTension: 0,
         backgroundColor: '#CC0000',
         pointBackgroundColor: '#CC0000',
         borderColor: '#CC0000',
         pointBorderColor:'#CC0000',
-        data: positive,
+        data: movingAvg(nuovi_positivi),
         fill: false
     }]
 
@@ -160,6 +161,26 @@ const andamentoChartAbrFn = function(data){
         }
     })
 
+}
+
+const movingAvg = function(array){
+    var prevArray = [], nextArray = []
+    var result = []
+
+    for (var i=0; i <= array.length; i++){
+        if (i >= 3) {
+            var prevValuesMean = ( array[i-3] + array[i-2] + array[i-1] ) / 3
+            prevArray.push(prevValuesMean)
+        } 
+        if (i <= array.length - 3) {
+            var nextValuesMean = ( array[i+3] + array[i+2] + array[i+1] ) / 3
+            nextArray.push(nextValuesMean)
+        }
+        
+        result.push((prevValuesMean + array[i] + nextValuesMean)/3)
+        
+    }  
+    return result
 }
 
 
