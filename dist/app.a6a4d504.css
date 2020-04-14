@@ -10484,14 +10484,14 @@ nav {
   display: grid;
   grid-gap: 0.2em;
   grid-template-columns: auto;
-  grid-template-rows: repeat(2, minmax(300px, 1fr));
+  grid-template-rows: repeat(2, minmax(310px, 1fr));
 }
 
 .chart-grid-quad {
   display: grid;
   grid-gap: 1.5em;
   grid-template-columns: repeat(2, 50%);
-  grid-template-rows: 30px minmax(260px, 1fr) minmax(260px, 1fr);
+  grid-template-rows: 30px minmax(273px, 1fr) minmax(273px, 1fr);
   grid-template-areas: "pie-legend pie-legend" "pie-chart1 pie-chart2" "pie-chart3 pie-chart4";
 }
 
@@ -10647,6 +10647,42 @@ ul.layer-list {
   display: inline-block;
   height: 20px;
   width: 10%;
+}
+
+/* Popup */
+.ol-popup {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.65);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 3px;
+  border: 2px solid black;
+  bottom: 12px;
+  left: -50px;
+  min-width: 220px;
+}
+
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.ol-popup:after {
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+
+.ol-popup:before {
+  border-top-color: #000;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
 }
 @font-face {
   font-family: 'Material Icons';

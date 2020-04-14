@@ -108,10 +108,16 @@ var map = new Map({
         })
     ],
     view: new View({
-      center: fromLonLat([13.4662867,42.6572761]),
+      center: fromLonLat([13.859,42.301]),	
       zoom: 9
     })
 });
+
+// Popup overlay
+var popup = new Overlay({
+    element: document.getElementById('popup')
+});
+map.addOverlay(popup);
 
 // Map Layers
 // ************************************************************
@@ -158,6 +164,35 @@ var provincesCluster = new VectorImageLayer({
 map.addLayer(provincesCluster);
 provincesCluster.set("name","Cluster Province");
 provincesCluster.setZIndex(13)
+
+// Mouse move
+// ************************************************************
+map.on('pointermove', function(e) {
+	if (e.dragging) return;
+    var pixel = e.map.getEventPixel(e.originalEvent);
+    var hit = e.map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+    	if (layer){
+            var coordinate = e.coordinate;
+            popup.setPosition(coordinate);
+            var popupContent = document.getElementById('popup-content');
+            if (layer.get('name')=='Comuni'){
+                popupContent.innerHTML = "<h5 class='text-danger'>"+feature.getProperties().denominazione_comune+" ("+feature.getProperties().sigla_provincia+")</h5>"
+                                            + "<span class='text-white'>Totale casi: "+feature.getProperties().totale_casi+"</span>"
+                                            + "<br/><span class='text-white'>Popolazione (2019): "+feature.getProperties().pop_2019+"</span>"
+                                            + "<br/><span class='text-white'>Dati del: "+moment(feature.getProperties().data).format('DD MMM YYYY')+"</span>"
+            } else if (layer.get('name')=='Province' || layer.get('name')=='Cluster Province'){
+                popupContent.innerHTML = "<h5 class='text-white'>"+feature.getProperties().denominazione_provincia+": "+feature.getProperties().totale_casi+" casi</h5>"
+            }
+            return layer.get('name') === 'Comuni' || layer.get('name') === 'Cluster Province' || layer.get('name') === 'Province';
+        }
+    });
+    if (hit){
+        e.map.getTargetElement().style.cursor = 'pointer';
+    } else {
+        popup.setPosition(undefined);
+        e.map.getTargetElement().style.cursor = '';
+    }
+});
 
 
 const apiUrl = "https://covid19-it-api.herokuapp.com"
@@ -268,8 +303,8 @@ const getProvincesDistribution = function(aggiornamento){
             feature.setStyle(provStyle); // set feature Style
         });
         // Set Extent
-        var extent = provincesLayer.getSource().getExtent();
-        map.getView().fit(extent, map.getSize());
+        // var extent = provincesLayer.getSource().getExtent();
+        // map.getView().fit(extent, map.getSize());
     })
 
     // 2 - Cluster Provinces

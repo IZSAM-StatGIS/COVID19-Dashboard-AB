@@ -39,14 +39,14 @@ nav {
     display: grid;
     grid-gap: 0.2em;
     grid-template-columns: auto;
-    grid-template-rows: repeat( 2, minmax(300px, 1fr) );
+    grid-template-rows: repeat( 2, minmax(310px, 1fr) );
 }
 
 .chart-grid-quad {
     display: grid;
     grid-gap: 1.5em;
     grid-template-columns: repeat(2, 50%);
-    grid-template-rows: 30px minmax(260px,1fr) minmax(260px,1fr);
+    grid-template-rows: 30px minmax(273px,1fr) minmax(273px,1fr);
     grid-template-areas: 
         "pie-legend pie-legend"
         "pie-chart1 pie-chart2"
