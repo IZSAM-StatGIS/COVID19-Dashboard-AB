@@ -12,7 +12,6 @@ body {
     grid-template-areas:
         "navbar navbar"
         "map    sidebar"
-        "map    sidebar"
 }
 
 nav {
@@ -32,7 +31,7 @@ nav {
     margin-bottom: 0.5em;
     display: grid;
     grid-gap: 0.2em;
-    grid-template-rows: 10% auto;
+    grid-template-rows: 80px 1fr;
 }
 
 .chart-grid {
@@ -76,12 +75,11 @@ nav {
         display: grid;
         grid-gap: 0.5em;
         grid-template-columns: 100%;
-        grid-template-rows: 90px minmax(50vh, 1fr) minmax(200px,1fr) 43px;
+        grid-template-rows: 90px minmax(50vh, 1fr) minmax(200px,1fr);
         grid-template-areas:
             "navbar"
             "map"
             "sidebar"
-            "footer"
     }
 
     #sidebar {
@@ -105,12 +103,11 @@ nav {
         display: grid;
         grid-gap: 0.5em;
         grid-template-columns: 100%;
-        grid-template-rows: 90px minmax(50vh, 1fr) 75vh 43px;
+        grid-template-rows: 90px minmax(50vh, 1fr) 75vh;
         grid-template-areas:
             "navbar"
             "map"
             "sidebar"
-            "footer"
     }
 
     #sidebar {
