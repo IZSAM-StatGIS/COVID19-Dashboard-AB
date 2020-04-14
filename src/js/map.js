@@ -170,33 +170,25 @@ axios.get(apiUrl+'/regioni',{
     } }).then(function(response){
     // Populate trend chart 
     andamentoChartAbrFn(response.data)
-    // Hospital charts
-    hospitalChartFn('13','Abruzzo', 'grafico-hosp-abruzzo')
-    hospitalChartFn('08','Emilia-Romagna', 'grafico-hosp-emilia')
-    hospitalChartFn('05','Veneto', 'grafico-hosp-veneto')
-    hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia')
 })
-/*
-document.addEventListener('DOMContentLoaded',(e)=>{
-    console.log('loaded')
-    hospitalChartFn('13','Abruzzo', 'grafico-hosp-abruzzo')
-    hospitalChartFn('08','Emilia-Romagna', 'grafico-hosp-emilia')
-    hospitalChartFn('05','Veneto', 'grafico-hosp-veneto')
-    hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia')
-})*/
 
-
+/* Workaround to make Firefox correctly loading the pies */
+/* ***************************************************** */
+var hospChartsLoaded = false;
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     
     if (e.target.id == 'hosp-tab'){
-        // Hospital charts
-        hospitalChartFn('13','Abruzzo', 'grafico-hosp-abruzzo')
-        hospitalChartFn('08','Emilia-Romagna', 'grafico-hosp-emilia')
-        hospitalChartFn('05','Veneto', 'grafico-hosp-veneto')
-        hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia')
+        if (hospChartsLoaded == false){
+            // Hospital charts
+            hospitalChartFn('13','Abruzzo', 'grafico-hosp-abruzzo')
+            hospitalChartFn('08','Emilia-Romagna', 'grafico-hosp-emilia')
+            hospitalChartFn('05','Veneto', 'grafico-hosp-veneto')
+            hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia')
+            hospChartsLoaded = true;
+        }
     }
-
 })
+/* ****************************************************** */
 
 // Get COVID19 Summary Data for Italy
 // ************************************************************
