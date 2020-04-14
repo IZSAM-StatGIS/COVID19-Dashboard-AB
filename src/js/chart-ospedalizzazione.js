@@ -1,4 +1,5 @@
 import 'chart.js'
+import 'chartjs-plugin-datalabels'
 import moment from 'moment'
 import axios from 'axios'
 
@@ -22,10 +23,13 @@ const hospitalChartFn = function(cod_reg, title, canvas_id){
 }
 
 const drawHospitalChart = function(dati, title, canvas_id){
-    console.log(dati)
+    // console.log(dati)
     var domiciliare = dati.isolamento_domiciliare;
     var ricoverati  = dati.ricoverati_con_sintomi;
     var tintensiva  = dati.terapia_intensiva;
+
+    var totale = domiciliare + ricoverati + tintensiva
+
     // Grafico
     var ctx = document.getElementById( canvas_id ).getContext('2d');
     
@@ -53,6 +57,25 @@ const drawHospitalChart = function(dati, title, canvas_id){
                 position: 'right',
                 labels:{
                     fontColor:'#bdbdbd'
+                }
+            },
+            plugins: {
+                datalabels: {
+                    color: '#FFF',
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold',
+                                // size: '16px'
+                            }
+                        },
+                        value: {
+                            color: 'green'
+                        }
+                    },
+                    formatter: function(value, context) {
+                        return (value * 100/totale).toFixed(0) + '%';
+                    }
                 }
             }
         } 

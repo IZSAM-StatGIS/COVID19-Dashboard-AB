@@ -1,4 +1,5 @@
 import 'chart.js'
+import 'chartjs-plugin-datalabels'
 import moment from 'moment'
 
 var andamentoNazionaleChart;
@@ -75,6 +76,11 @@ const andamentoChartNazFn = function(data){
                         fontColor:'#FFF'
                     }
                 }]
+            },
+            plugins:{
+                datalabels: {
+                    display:false
+                }
             }
         }
     })
@@ -154,6 +160,11 @@ const andamentoChartAbrFn = function(data){
                         fontColor:'#FFF'
                     }
                 }]
+            },
+            plugins:{
+                datalabels: {
+                    display:false
+                }
             }
         }
     })

@@ -1,4 +1,5 @@
 import 'chart.js'
+import 'chartjs-plugin-datalabels'
 import moment from 'moment'
 
 var casiNazionaleChart;
@@ -108,6 +109,11 @@ const casiChartNazFn = function(data){
                         fontColor:'#FFF'
                     }
                 }]
+            },
+            plugins:{
+                datalabels: {
+                    display:false
+                }
             }
         }
     })
@@ -220,6 +226,11 @@ const casiChartAbrFn = function(dati){
                         fontColor:'#FFF'
                     }
                 }]
+            },
+            plugins:{
+                datalabels: {
+                    display:false
+                }
             }
         }
     })

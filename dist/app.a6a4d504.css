@@ -10485,9 +10485,30 @@ nav {
 
 .chart-grid-quad {
   display: grid;
-  grid-gap: 0.2em;
+  grid-gap: 1.5em;
   grid-template-columns: repeat(2, 50%);
-  grid-template-rows: repeat(2, minmax(290px, 1fr));
+  grid-template-rows: 30px minmax(240px, 1fr) minmax(240px, 1fr);
+  grid-template-areas: "pie-legend pie-legend" "pie-chart1 pie-chart2" "pie-chart3 pie-chart4";
+}
+
+.pie-legend {
+  grid-area: pie-legend;
+}
+
+.pie-chart1 {
+  grid-area: pie-chart1;
+}
+
+.pie-chart2 {
+  grid-area: pie-chart2;
+}
+
+.pie-chart3 {
+  grid-area: pie-chart3;
+}
+
+.pie-chart4 {
+  grid-area: pie-chart4;
 }
 
 #footer {

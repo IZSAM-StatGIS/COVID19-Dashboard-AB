@@ -92,17 +92,24 @@
                             <div class="tab-pane" id="hospitals-chart-tab" role="tabpanel" aria-labelledby="messages-tab">
                                 <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
                                     <div class="card-body chart-grid-quad">
-                                        
-                                        <div>
+                                        <div class="pie-legend d-flex d-flex-rows justify-content-center">
+                                            <div style="height: 20px; width: 20px; background-color: #4285F4;"></div>&nbsp;
+                                            <div>Isolamento domiciliare</div>&nbsp; - &nbsp;
+                                            <div style="height: 20px; width: 20px; background-color: #FF8800;"></div>&nbsp;
+                                            <div>Ricoverati con sintomi</div>&nbsp; - &nbsp;
+                                            <div style="height: 20px; width: 20px; background-color: #b71c1c;"></div>&nbsp;
+                                            <div>Terapia intensiva</div>
+                                        </div>
+                                        <div class="pie-chart1">
                                             <canvas id="grafico-hosp-abruzzo"></canvas>
                                         </div>
-                                        <div>
+                                        <div class="pie-chart2">
                                             <canvas id="grafico-hosp-emilia"></canvas>
                                         </div>
-                                        <div>
+                                        <div class="pie-chart3">
                                             <canvas id="grafico-hosp-veneto"></canvas>
                                         </div>
-                                        <div>
+                                        <div class="pie-chart4">
                                             <canvas id="grafico-hosp-lombardia"></canvas>
                                         </div>
                                     </div>
