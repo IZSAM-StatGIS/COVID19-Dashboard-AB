@@ -115,6 +115,8 @@ var map = new Map({
 
 // Map Layers
 // ************************************************************
+
+// Provinces layer
 var provincesLayer = new VectorImageLayer({
     source: new VectorSource({
         format: new GeoJSON()
@@ -123,7 +125,18 @@ var provincesLayer = new VectorImageLayer({
 map.addLayer(provincesLayer)
 provincesLayer.set("name","Province")
 provincesLayer.setZIndex(10)
-provincesLayer.setOpacity(0.5)
+provincesLayer.setOpacity(0.75)
+
+// Municipalities
+var comuniLayer = new VectorImageLayer({
+    source: new VectorSource({
+        format: new GeoJSON()
+    })
+})
+map.addLayer(comuniLayer)
+comuniLayer.set("name","Comuni")
+comuniLayer.setZIndex(11)
+// comuniLayer.setOpacity(0.5)
 
 // Label Layer
 var labelsLayer = new TileLayer({
@@ -133,7 +146,7 @@ var labelsLayer = new TileLayer({
 })
 map.addLayer(labelsLayer)
 labelsLayer.set("name","Labels")
-labelsLayer.setZIndex(11)
+labelsLayer.setZIndex(12)
 
 // Provinces Cluster
 var provincesCluster = new VectorImageLayer({
@@ -158,6 +171,8 @@ axios.get(apiUrl+'/andamento',{ params:{} }).then(function(response){
     document.querySelector('#aggiornamento').innerHTML = moment(aggiornamento).format('DD MMM YYYY')
     // Populate region distribution and cluster layers
     getProvincesDistribution(aggiornamento)
+    // Populate municipalities distribution layer
+    getComuniDistribution(aggiornamento)
     // Populate trend charts
     andamentoChartNazFn(response.data)
 })
@@ -279,6 +294,93 @@ const getProvincesDistribution = function(aggiornamento){
     })
 
 }
+
+// Get COVID19 Municipalities Data
+// ************************************************************
+const getComuniDistribution = function(aggiornamento){
+    // 1 - Polygons
+    axios.get(apiUrl+'/comuni/map',{
+        params:{
+            data: '2020-04-03',
+            cod_reg: '13'
+        }
+    }).then(function(response){
+        comuniLayer.getSource().clear()
+        // Spatial data
+        var features = response.data.features;
+        // Calculate color scale domain
+        var color_scale_domain = []
+        features.forEach(function(f){
+            color_scale_domain.push(f.properties.totale_casi)
+        })
+        var collection = {"type": "FeatureCollection", "features": features};
+        var featureCollection = new GeoJSON({featureProjection:'EPSG:3857'}).readFeatures(collection);
+        // Update provinces layer
+        comuniLayer.getSource().addFeatures(featureCollection);
+        // Style Provinces
+        var scale = chroma.scale('Reds').domain([0,Math.max.apply(Math, color_scale_domain)]);
+        comuniLayer.getSource().forEachFeature(function (feature) {
+            var comuniStyle;
+            if (feature.get('totale_casi') == 0){
+                comuniStyle = new Style({
+                    stroke: new Stroke({ color: "silver", width: 1 }),
+                    fill: new Fill({ color: '#98a1a6' })
+                }); 
+            } else {
+                var comuniColor = scale((feature.get('totale_casi')/feature.get('pop_2019'))*100000).hex(); 
+                comuniStyle = new Style({
+                    stroke: new Stroke({ color: "silver", width: 1 }),
+                    fill: new Fill({ color: comuniColor })
+                }); 
+            }
+            feature.setStyle(comuniStyle); // set feature Style
+        });
+
+    })
+}
+
+// Layer switcher
+const layerBtn = document.querySelector("#layer-btn")
+const layerPanel = document.querySelector("#layer-panel")
+layerBtn.addEventListener('click',(e)=>{
+    // e.preventDefault()
+    if (layerPanel.style.visibility == 'hidden'){
+        layerPanel.style.visibility = 'visible'
+    } else {
+        layerPanel.style.visibility = 'hidden'
+    }    
+});
+
+document.querySelector("#prov-pt-toggler").addEventListener('change',(e)=>{
+    if(e.target.checked) {
+        provincesCluster.setVisible(true)
+    } else {
+        provincesCluster.setVisible(false)
+    }
+})
+
+document.querySelector("#com-pl-toggler").addEventListener('change',(e)=>{
+    if(e.target.checked) {
+        comuniLayer.setVisible(true)
+    } else {
+        comuniLayer.setVisible(false)
+    }
+})
+
+document.querySelector("#prov-pl-toggler").addEventListener('change',(e)=>{
+    if(e.target.checked) {
+        provincesLayer.setVisible(true)
+    } else {
+        provincesLayer.setVisible(false)
+    }
+})
+
+var legendContainer = document.querySelector('#legend-container')
+var legendColors = chroma.brewer.OrRd
+legendColors.forEach(color => {
+    var legendElement = '<div class="color-step" style="background-color:'+color+'"></div>'
+    legendContainer.innerHTML += legendElement
+})
 
 
 

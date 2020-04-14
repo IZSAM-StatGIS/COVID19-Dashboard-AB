@@ -22,3 +22,52 @@
 .ol-zoom-out:hover{
     opacity:0.75 !important;
 }
+
+/* Layer control */
+.ol-custom{
+    z-index: 1000;
+    top: 0.5em;
+    right: 0.5em;
+}
+
+.ol-custom-panel{
+    z-index: 999;
+    visibility: visible;
+    background-color:rgba(255,255,255,0.8) !important;
+    color:#4B515D;
+    width: auto;
+    height: auto;
+    top: 0.5em;
+    right: 0.5em;
+}
+
+ul.layer-list {
+    list-style-type: none;
+    margin: 5px 55px 5px 5px;
+    padding: 0;
+}
+
+.legend-br {
+    border: 1px solid #4B515D;
+}
+
+#legend-container {
+    width:100%;
+    position: relative;
+    margin-top:5px;
+    text-align: center;
+    display: inline-block;
+}
+
+#legend-text{
+    position: relative;
+    font-size: 10px;
+    text-align: center;
+    margin-bottom:2px;
+}
+
+.color-step {
+    display: inline-block;
+    height: 20px;
+    width: 10%;
+}

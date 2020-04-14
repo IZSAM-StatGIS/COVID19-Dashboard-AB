@@ -31,7 +31,38 @@
     <!-- Close Navbar -->
 
     <!-- Main -->
-    <div id="map" class="custom-shadow"></div>
+    <!-- Map -->
+    <div id="map" class="custom-shadow">
+        <!-- Layer control -->
+        <div class="ol-custom ol-unselectable ol-control">
+            <button class="ol-zoom-in" type="button" title="Layer" id="layer-btn"><i class="fas fa-layer-group"></i></button>
+        </div>
+        <div class="ol-custom-panel ol-unselectable ol-control" id="layer-panel">
+            <ul class="layer-list">
+                <li>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="prov-pt-toggler" name="layer-chk" checked>
+                        <label class="custom-control-label" for="prov-pt-toggler">Cluster Province</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="com-pl-toggler" name="layer-chk" checked>
+                        <label class="custom-control-label" for="com-pl-toggler">Comuni per 100k abitanti</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="prov-pl-toggler" name="layer-chk" checked>
+                        <label class="custom-control-label" for="prov-pl-toggler">Province</label>
+                    </div>
+                </li>
+            </ul>
+            <br class="legend-br"/>
+            <div id="legend-container"></div>
+            <div id="legend-text">Num. contagi crescente <i class="fas fa-arrow-right"></i></div>
+        </div>
+    </div>
     <div id="sidebar" class="p-0">
         
         <div id="widget-one" class="card bg-info-dark text-white custom-shadow">
