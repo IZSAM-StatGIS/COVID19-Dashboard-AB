@@ -169,6 +169,11 @@ axios.get(apiUrl+'/regioni',{
     } }).then(function(response){
     // Populate trend chart 
     andamentoChartAbrFn(response.data)
+    // Hospital charts
+    hospitalChartFn('13','Abruzzo', 'grafico-hosp-abruzzo')
+    hospitalChartFn('08','Emilia-Romagna', 'grafico-hosp-emilia')
+    hospitalChartFn('05','Veneto', 'grafico-hosp-veneto')
+    hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia')
 })
 
 // Get COVID19 Summary Data for Italy
@@ -177,6 +182,7 @@ axios.get(apiUrl+'/regioni',{ params:{}}).then(function(response){
     // Populate trend chart 
     casiChartNazFn(response.data)
 })
+
 
 // Get COVID19 Provinces Data for Abruzzo
 // ************************************************************
@@ -188,12 +194,6 @@ axios.get(apiUrl+'/province',{ params:{ cod_reg: 13 }}).then(function(response){
     // trend Chart for Each Province
     casiChartAbrFn(chartData)
 })
-
-// Hospital Charts
-setTimeout(function(){ hospitalChartFn('13','Abruzzo', 'grafico-hosp-abruzzo',) }, 500)
-setTimeout(function(){ hospitalChartFn('08','Emilia-Romagna', 'grafico-hosp-emilia') }, 500)
-setTimeout(function(){ hospitalChartFn('05','Veneto', 'grafico-hosp-veneto') }, 500)
-setTimeout(function(){ hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia') }, 500)
 
 // Get COVID19 Provinces Data
 // ************************************************************
