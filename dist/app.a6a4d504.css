@@ -10452,10 +10452,11 @@ h3 {
 body {
   background-color: #8d8a8a;
   display: grid;
+  height: 100vh;
   grid-gap: 0.5em;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 90px calc(100vh - 160px) 43px;
-  grid-template-areas: "navbar navbar" "map    sidebar" "footer footer";
+  grid-template-rows: 90px 1fr;
+  grid-template-areas: "navbar navbar" "map    sidebar" "map    sidebar";
 }
 
 nav {
@@ -10466,11 +10467,13 @@ nav {
 #map {
   grid-area: map;
   margin-left: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 #sidebar {
   grid-area: sidebar;
   margin-right: 0.5em;
+  margin-bottom: 0.5em;
   display: grid;
   grid-gap: 0.2em;
   grid-template-rows: 10% auto;
@@ -10480,14 +10483,14 @@ nav {
   display: grid;
   grid-gap: 0.2em;
   grid-template-columns: auto;
-  grid-template-rows: repeat(2, minmax(290px, 1fr));
+  grid-template-rows: repeat(2, minmax(310px, 1fr));
 }
 
 .chart-grid-quad {
   display: grid;
   grid-gap: 1.5em;
   grid-template-columns: repeat(2, 50%);
-  grid-template-rows: 30px minmax(240px, 1fr) minmax(240px, 1fr);
+  grid-template-rows: 30px minmax(270px, 1fr) minmax(270px, 1fr);
   grid-template-areas: "pie-legend pie-legend" "pie-chart1 pie-chart2" "pie-chart3 pie-chart4";
 }
 

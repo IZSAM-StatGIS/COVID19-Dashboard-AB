@@ -2,7 +2,7 @@
 import 'ol/ol.css'
 import Map from 'ol/Map'
 import View from 'ol/View'
-import {defaults as defaultControls, FullScreen} from 'ol/control'
+import {defaults as defaultControls, Attribution} from 'ol/control'
 import {fromLonLat, getTransform} from 'ol/proj'
 import {applyTransform} from 'ol/extent'
 import {Tile as TileLayer} from 'ol/layer'
@@ -91,14 +91,16 @@ var clusterStyle = function(feature){
 // ************************************************************
 var map = new Map({
     target: 'map',
-    controls: defaultControls().extend([
-        // new FullScreen({tipLabel:'Mappa a schermo intero'})
+    controls: defaultControls({attribution: false}).extend([
+        new Attribution({
+            collapsible: false
+        })
     ]),
     layers: [
         // Base Layer
         new TileLayer({
             source: new XYZ({
-                attributions:'CoViD-19 Data Source &copy; <a href="http://www.protezionecivile.gov.it/" target="_blank">'+
+                attributions:'Fonte &copy; <a href="http://www.protezionecivile.gov.it/" target="_blank">'+
                              'Sito del Dipartimento della Protezione Civile - Presidenza del Consiglio dei Ministri</a>',
                 url: 'http://{a-c}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png'
             })
