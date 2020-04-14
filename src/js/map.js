@@ -15,8 +15,9 @@ import Overlay from 'ol/Overlay'
 
 // Node Mosules
 import axios from 'axios'
-import moment from 'moment';
-import chroma from 'chroma-js';
+import moment from 'moment'
+import chroma from 'chroma-js'
+// import $ from 'jquery'
 
 import { andamentoChartNazFn, andamentoChartAbrFn } from './chart-andamento'
 import { casiChartNazFn, casiChartAbrFn } from './chart-totale-casi-100k'
@@ -176,6 +177,27 @@ axios.get(apiUrl+'/regioni',{
     hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia')
 })
 
+document.addEventListener('DOMContentLoaded',(e)=>{
+    console.log('loaded')
+    hospitalChartFn('13','Abruzzo', 'grafico-hosp-abruzzo')
+    hospitalChartFn('08','Emilia-Romagna', 'grafico-hosp-emilia')
+    hospitalChartFn('05','Veneto', 'grafico-hosp-veneto')
+    hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia')
+})
+
+/*
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    
+    if (e.target.id == 'hosp-tab'){
+        // Hospital charts
+        hospitalChartFn('13','Abruzzo', 'grafico-hosp-abruzzo')
+        hospitalChartFn('08','Emilia-Romagna', 'grafico-hosp-emilia')
+        hospitalChartFn('05','Veneto', 'grafico-hosp-veneto')
+        hospitalChartFn('03','Lombardia', 'grafico-hosp-lombardia')
+    }
+
+})*/
+
 // Get COVID19 Summary Data for Italy
 // ************************************************************
 axios.get(apiUrl+'/regioni',{ params:{}}).then(function(response){
@@ -265,10 +287,6 @@ const getProvincesDistribution = function(aggiornamento){
     })
 
 }
-
-// Get COVID19 Provinces Data (Capoluoghi)
-// ************************************************************
-// Centroids
 
 
 

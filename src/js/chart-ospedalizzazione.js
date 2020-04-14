@@ -3,7 +3,6 @@ import 'chartjs-plugin-datalabels'
 import moment from 'moment'
 import axios from 'axios'
 
-var hospitalChart
 const hospitalChartFn = function(cod_reg, title, canvas_id){
 
     var aggiornamento = moment(new Date(document.querySelector("#aggiornamento").textContent)).format('YYYY-MM-DD')
@@ -17,7 +16,9 @@ const hospitalChartFn = function(cod_reg, title, canvas_id){
             chartData.push(feature.properties)
         })
 
-        drawHospitalChart(chartData[0], title, canvas_id)
+        setTimeout(function(){
+            drawHospitalChart(chartData[0], title, canvas_id)
+        },200)
         
     })
 }
