@@ -218,10 +218,10 @@ const casiChartNazFn = function(data){
             if (regione == 'valle_daosta') { var label = "Valle d'Aosta" } else {
                 var label = regione.replace(regione.charAt(0), regione.charAt(0).toUpperCase())
             }
-            if (index == 0) { var color = '#ff4444' }
-            if (index == 1) { var color = '#00C851' }
-            if (index == 2) { var color = '#4285F4' }
-            if (index == 3) { var color = '#aa66cc' }
+            if (index == 0) { var color = '#3F729B' }
+            if (index == 1) { var color = '#0093B4' }
+            if (index == 2) { var color = '#00B4B7' }
+            if (index == 3) { var color = '#3CD1A4' }
 
             var dataset = eval('dati_'+regione)
             casiNazionaleChart_add(dataset,label,color)
