@@ -84,45 +84,12 @@ nav {
             "sidebar"
     }
 
-    #sidebar {
-        grid-area: sidebar;
-        margin: 0 0.5em 20px 0.5em;
-        display: grid;
-        grid-gap: 0.2em;
-        grid-template-columns: repeat(2, auto);
-        grid-template-rows: minmax(50vh, 1fr);
-    }
-
     #map {
         grid-area: map;
         margin: 0 0.5em;
     }
-}
-
-@media only screen and (max-device-width : 414px) {
-    body {
-        background-color: $dark;
-        display: grid;
-        grid-gap: 0.5em;
-        grid-template-columns: 100%;
-        grid-template-rows: 90px minmax(50vh, 1fr) 75vh;
-        grid-template-areas:
-            "navbar"
-            "map"
-            "sidebar"
-    }
 
     #sidebar {
-        grid-area: sidebar;
-        margin: 0 0.5em 20px 0.5em;
-        display: grid;
-        grid-gap: 0.2em;
-        grid-template-columns: 100%;
-        grid-template-rows: auto;
-    }
-
-    #map {
-        grid-area: map;
-        margin: 0 0.5em;
+        margin-left:0.5em;
     }
 }
