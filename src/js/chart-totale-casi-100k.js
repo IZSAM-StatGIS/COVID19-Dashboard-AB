@@ -1,11 +1,16 @@
 import 'chart.js'
 import 'chartjs-plugin-datalabels'
 import moment from 'moment'
+import $ from 'jquery'
 
 var casiNazionaleChart;
 const casiChartNazFn = function(data){
-
+    
     var dati_abruzzo = [], dati_emilia = [], dati_veneto = [], dati_lombardia = []
+    var dati_basilicata = [], dati_bolzano = [], dati_calabria = [], dati_campania = [], dati_friuli = []
+    var dati_lazio = [], dati_liguria = [], dati_marche = [], dati_molise = [], dati_piemonte = []
+    var dati_puglia = [], dati_sardegna = [], dati_sicilia = [], dati_toscana = [], dati_trento = []
+    var dati_umbria = [], dati_valle_daosta = []
     var bullettin_dates = []
 
     data.features.forEach(feature =>{
@@ -13,6 +18,7 @@ const casiChartNazFn = function(data){
         var casi   = feature.properties.totale_casi
         var dates  = moment(feature.properties.data).format('DD MMM')
 
+        /* Default regions */
         if (codice == parseInt('13')){
             var pop19 = 1311580
             dati_abruzzo.push((casi/pop19)*100000)
@@ -27,6 +33,59 @@ const casiChartNazFn = function(data){
             var pop19 = 10060574
             dati_lombardia.push((casi/pop19)*100000)
         }
+        /* Selectable regions */
+        else if (codice == parseInt('17')){
+            var pop19 = 562890
+            dati_basilicata.push((casi/pop19)*100000)
+        } else if (codice == parseInt('4') && feature.properties.denominazione_regione == 'P.A. Bolzano'){
+            var pop19 = 1311580
+            dati_bolzano.push((casi/pop19)*100000)
+        } else if (codice == parseInt('18')){
+            var pop19 = 5879082
+            dati_calabria.push((casi/pop19)*100000)
+        } else if (codice == parseInt('15')){
+            var pop19 = 5801692
+            dati_campania.push((casi/pop19)*100000)
+        } else if (codice == parseInt('6')){
+            var pop19 = 562869
+            dati_friuli.push((casi/pop19)*100000)
+        } else if (codice == parseInt('12')){
+            var pop19 = 4029053
+            dati_lazio.push((casi/pop19)*100000)
+        } else if (codice == parseInt('7')){
+            var pop19 = 4999891
+            dati_liguria.push((casi/pop19)*100000)
+        } else if (codice == parseInt('11')){
+            var pop19 = 1525271
+            dati_marche.push((casi/pop19)*100000)
+        } else if (codice == parseInt('14')){
+            var pop19 = 4356406
+            dati_molise.push((casi/pop19)*100000)
+        } else if (codice == parseInt('1')){
+            var pop19 = 10060574
+            dati_piemonte.push((casi/pop19)*100000)
+        } else if (codice == parseInt('16')){
+            var pop19 = 125666
+            dati_puglia.push((casi/pop19)*100000)
+        } else if (codice == parseInt('20')){
+            var pop19 = 4905854
+            dati_sardegna.push((casi/pop19)*100000)
+        } else if (codice == parseInt('19')){
+            var pop19 = 1550640
+            dati_sicilia.push((casi/pop19)*100000)
+        } else if (codice == parseInt('9')){
+            var pop19 = 1215220
+            dati_toscana.push((casi/pop19)*100000)
+        } else if (codice == parseInt('4') && feature.properties.denominazione_regione == 'P.A. Trento'){
+            var pop19 = 3729641
+            dati_trento.push((casi/pop19)*100000)
+        } else if (codice == parseInt('10')){
+            var pop19 = 4459477
+            dati_umbria.push((casi/pop19)*100000)
+        } else if (codice == parseInt('2')){
+            var pop19 = 531178
+            dati_valle_daosta.push((casi/pop19)*100000)
+        } 
     })
 
     var datasets = [{
@@ -84,8 +143,8 @@ const casiChartNazFn = function(data){
 		options: {
             title: {
                 display: true,
-                text: 'Abruzzo e Regioni più colpite',
-                fontSize: 16,
+                text: 'Confronto Regioni',
+                fontSize: 14,
                 fontColor: '#FFF'
             },
             responsive:true,
@@ -117,6 +176,66 @@ const casiChartNazFn = function(data){
             }
         }
     })
+
+    document.querySelector("#compare-regions-btn").addEventListener('click', (e) => {
+        // Clear all chart datasets
+        casiNazionaleChart.data.datasets = []
+        casiNazionaleChart.update()
+        // Add selected regions datasets
+        var selected_regions = $("#casi-region-select").val()
+        selected_regions.forEach((regione, index) =>{
+            if (regione == 'valle_daosta') { var label = "Valle d'Aosta" } else {
+                var label = regione.replace(regione.charAt(0), regione.charAt(0).toUpperCase())
+            }
+            if (index == 0) { var color = '#ff4444' }
+            if (index == 1) { var color = '#00C851' }
+            if (index == 2) { var color = '#4285F4' }
+            if (index == 3) { var color = '#aa66cc' }
+
+            var dataset = eval('dati_'+regione)
+            casiNazionaleChart_add(dataset,label,color)
+        })
+    })
+
+    document.querySelector("#reset-regions-btn").addEventListener('click', (e) => {
+        // Clear all chart datasets
+        casiNazionaleChart.data.datasets = []
+        casiNazionaleChart.update()
+        // Select Default regions
+        $("#casi-region-select").selectpicker('val', ['abruzzo','emilia','lombardia','veneto']);
+        // Add selected regions datasets
+        var selected_regions = $("#casi-region-select").val()
+        selected_regions.forEach((regione, index) =>{
+            if (regione == 'valle_daosta') { var label = "Valle d'Aosta" } else {
+                var label = regione.replace(regione.charAt(0), regione.charAt(0).toUpperCase())
+            }
+            if (index == 0) { var color = '#ff4444' }
+            if (index == 1) { var color = '#00C851' }
+            if (index == 2) { var color = '#4285F4' }
+            if (index == 3) { var color = '#aa66cc' }
+
+            var dataset = eval('dati_'+regione)
+            casiNazionaleChart_add(dataset,label,color)
+        })
+    })
+
+}
+
+const casiNazionaleChart_add = function(dataset, label, color){
+
+    casiNazionaleChart.data.datasets.push({
+        label: label,
+        lineTension: 0,
+        borderWidth:2,
+        borderColor: color,
+        pointRadius: 2,
+        pointBackgroundColor: color,
+        pointBorderColor: color,
+        data: dataset,
+        fill: 'rgba(255,255,255,0.1)'
+      });
+
+      casiNazionaleChart.update();
 }
 
 var casiAbruzzoChart

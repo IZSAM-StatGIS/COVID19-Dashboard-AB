@@ -16,7 +16,7 @@
         </button>
         <div class="collapse navbar-collapse" id="collapse_target">
             <span class="navbar-text text-white">
-                <h4>CoViD-19 Dashboard Abruzzo</h4>
+                <h4>COVID-19 Dashboard Abruzzo</h4>
                 <small><a href="http://izs.it/IZS" target="_blank" class="text-white">
                     Centro di Referenza Nazionale per l'Epidemiologia, la Programmazione, l'Informazione e l'Analisi del Rischio</a>
                 </small>
@@ -45,12 +45,14 @@
                         <label class="custom-control-label" for="prov-pt-toggler">Cluster Province</label>
                     </div>
                 </li>
+                <!-- 
                 <li>
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="com-pl-toggler" name="layer-chk" checked>
                         <label class="custom-control-label" for="com-pl-toggler">Comuni per 100k abitanti</label>
                     </div>
                 </li>
+                -->
                 <li>
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="prov-pl-toggler" name="layer-chk" checked>
@@ -103,6 +105,7 @@
                             <div class="tab-pane active" id="andamento-chart-tab" role="tabpanel">
                                 <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
                                     <div class="card-body chart-grid">
+                                        <div></div>
                                         <div>
                                             <canvas id="grafico-andamento-nazionale"></canvas>
                                         </div>
@@ -115,6 +118,37 @@
                             <div class="tab-pane" id="casi-chart-tab" role="tabpanel">
                                 <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
                                     <div class="card-body chart-grid">
+                                        <div class="d-flex justify-content-center">
+                                            <select id="casi-region-select" class="selectpicker" 
+                                                data-style="btn-outline-info-dark text-white btn-sm" 
+                                                    data-live-search="true" multiple data-max-options="4"
+                                                    data-dropup-auto="false" data-width="50%" data-size="5"
+                                                    data-none-selected-text="Seleziona fino a 4 Regioni per il confronto">
+                                                <option value="abruzzo" selected>Abruzzo</option>
+                                                <option value="basilicata">Basilicata</option>
+                                                <option value="bolzano">P.A. Bolzano</option>
+                                                <option value="calabria">Calabria</option>
+                                                <option value="campania">Campania</option>
+                                                <option value="emilia" selected>Emilia-Romagna</option>
+                                                <option value="friuli">Friuli Venezia Giulia</option>
+                                                <option value="lazio">Lazio</option>
+                                                <option value="liguria">Liguria</option>
+                                                <option value="lombardia" selected>Lombardia</option>
+                                                <option value="marche">Marche</option>
+                                                <option value="molise">Molise</option>
+                                                <option value="piemonte">Piemonte</option>
+                                                <option value="puglia">Puglia</option>
+                                                <option value="sardegna">Sardegna</option>
+                                                <option value="sicilia">Sicilia</option>
+                                                <option value="toscana">Toscana</option>
+                                                <option value="trento">P.A. Trento</option>
+                                                <option value="umbria">Umbria</option>
+                                                <option value="valle_daosta">Valle d'Aosta</option>
+                                                <option value="veneto" selected>Veneto</option>
+                                            </select>
+                                            <button class="ml-1 btn btn-info-dark btn-sm" id="compare-regions-btn">Confronta</button>
+                                            <button class="ml-1 btn btn-info-dark btn-sm" id="reset-regions-btn">Reset</button>
+                                        </div>
                                         <div>
                                             <canvas id="grafico-casi-nazionale"></canvas>
                                         </div>

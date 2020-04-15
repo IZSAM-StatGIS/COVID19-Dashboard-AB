@@ -139,7 +139,7 @@ var comuniLayer = new VectorImageLayer({
         format: new GeoJSON()
     })
 })
-map.addLayer(comuniLayer)
+// map.addLayer(comuniLayer)
 comuniLayer.set("name","Comuni")
 comuniLayer.setZIndex(11)
 // comuniLayer.setOpacity(0.5)
@@ -393,14 +393,14 @@ document.querySelector("#prov-pt-toggler").addEventListener('change',(e)=>{
         provincesCluster.setVisible(false)
     }
 })
-
+/*
 document.querySelector("#com-pl-toggler").addEventListener('change',(e)=>{
     if(e.target.checked) {
         comuniLayer.setVisible(true)
     } else {
         comuniLayer.setVisible(false)
     }
-})
+})*/
 
 document.querySelector("#prov-pl-toggler").addEventListener('change',(e)=>{
     if(e.target.checked) {
