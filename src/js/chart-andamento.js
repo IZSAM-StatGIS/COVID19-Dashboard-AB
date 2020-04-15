@@ -77,6 +77,14 @@ const andamentoChartNazFn = function(data){
                     }
                 }]
             },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label
+                        return label+": "+tooltipItem.yLabel.toFixed(0)
+                    }
+                }
+            },
             plugins:{
                 datalabels: {
                     display:false
@@ -161,6 +169,14 @@ const andamentoChartAbrFn = function(data){
                     }
                 }]
             },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label
+                        return label+": "+tooltipItem.yLabel.toFixed(0)
+                    }
+                }
+            },
             plugins:{
                 datalabels: {
                     display:false
@@ -191,6 +207,5 @@ const movingAvg = function(array){
     }  
     return result
 }
-
 
 export { andamentoChartNazFn, andamentoChartAbrFn }

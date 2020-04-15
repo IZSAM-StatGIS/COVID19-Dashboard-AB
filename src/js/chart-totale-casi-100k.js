@@ -1,6 +1,7 @@
 import 'chart.js'
 import 'chartjs-plugin-datalabels'
 import moment from 'moment'
+import chroma from 'chroma-js'
 import $ from 'jquery'
 
 var casiNazionaleChart;
@@ -92,40 +93,40 @@ const casiChartNazFn = function(data){
         label: 'Abruzzo',
         lineTension: 0,
         borderWidth:2,
-        borderColor: '#ff4444',
+        borderColor: '#3F729B',
         pointRadius: 2,
-        pointBackgroundColor: '#ff4444',
-        pointBorderColor: '#ff4444',
+        pointBackgroundColor: '#3F729B',
+        pointBorderColor: '#3F729B',
         data: dati_abruzzo,
         fill: 'rgba(255,255,255,0.1)'
     },{
         label: 'Emilia-Romagna',
         lineTension: 0,
         borderWidth:2,
-        borderColor: '#00C851',
+        borderColor: '#0093B4',
         pointRadius: 2,
-        pointBackgroundColor: '#00C851',
-        pointBorderColor: '#00C851',
+        pointBackgroundColor: '#0093B4',
+        pointBorderColor: '#0093B4',
         data: dati_emilia,
         fill: 'rgba(255,255,255,0.1)'
     },{
         label: 'Lombardia',
         lineTension: 0,
         borderWidth:2,
-        borderColor: '#4285F4',
+        borderColor: '#00B4B7',
         pointRadius: 2,
-        pointBackgroundColor: '#4285F4',
-        pointBorderColor: '#4285F4',
+        pointBackgroundColor: '#00B4B7',
+        pointBorderColor: '#00B4B7',
         data: dati_lombardia,
         fill: 'rgba(255,255,255,0.1)'
     },{
         label: 'Veneto',
         lineTension: 0,
         borderWidth:2,
-        borderColor: '#aa66cc',
+        borderColor: '#3CD1A4',
         pointRadius: 2,
-        pointBackgroundColor: '#aa66cc',
-        pointBorderColor: '#aa66cc',
+        pointBackgroundColor: '#3CD1A4',
+        pointBorderColor: '#3CD1A4',
         data: dati_veneto,
         fill: 'rgba(255,255,255,0.1)'
     }]
@@ -169,6 +170,14 @@ const casiChartNazFn = function(data){
                     }
                 }]
             },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label
+                        return label+": "+tooltipItem.yLabel.toFixed(0)
+                    }
+                }
+            },
             plugins:{
                 datalabels: {
                     display:false
@@ -187,10 +196,10 @@ const casiChartNazFn = function(data){
             if (regione == 'valle_daosta') { var label = "Valle d'Aosta" } else {
                 var label = regione.replace(regione.charAt(0), regione.charAt(0).toUpperCase())
             }
-            if (index == 0) { var color = '#ff4444' }
-            if (index == 1) { var color = '#00C851' }
-            if (index == 2) { var color = '#4285F4' }
-            if (index == 3) { var color = '#aa66cc' }
+            if (index == 0) { var color = '#3F729B' }
+            if (index == 1) { var color = '#0093B4' }
+            if (index == 2) { var color = '#00B4B7' }
+            if (index == 3) { var color = '#3CD1A4' }
 
             var dataset = eval('dati_'+regione)
             casiNazionaleChart_add(dataset,label,color)
@@ -240,7 +249,7 @@ const casiNazionaleChart_add = function(dataset, label, color){
 
 var casiAbruzzoChart
 const casiChartAbrFn = function(dati){
-    // console.log(dati)
+    console.log(dati)
 
     var dati_aq = [], dati_pe = [], dati_te = [], dati_ch = []
     var bullettin_dates = []
@@ -266,44 +275,54 @@ const casiChartAbrFn = function(dati){
         }
     })
 
+    var chart_color_domain = [dati_aq.slice(-1).pop(), dati_pe.slice(-1).pop(), dati_te.slice(-1).pop(), dati_ch.slice(-1).pop()]
+
+    // console.log(tot_casi_latest)
+    // var scale = chroma.scale('Reds').domain([0,chart_color_max])
+    var scale = chroma.scale('Reds').domain([0,Math.max.apply(Math, chart_color_domain)]);
+    var color_aq = scale(dati_aq.slice(-1).pop()).hex()
+    var color_pe = scale(dati_pe.slice(-1).pop()).hex()
+    var color_ch = scale(dati_ch.slice(-1).pop()).hex()
+    var color_te = scale(dati_te.slice(-1).pop()).hex()
+
     var datasets = [{
         label: 'AQ',
         lineTension: 0,
         borderWidth:2,
-        borderColor: '#ff4444',
+        borderColor: color_aq,
         pointRadius: 2,
-        pointBackgroundColor: '#ff4444',
-        pointBorderColor: '#ff4444',
+        pointBackgroundColor: color_aq,
+        pointBorderColor: color_aq,
         data: dati_aq,
         fill: 'rgba(255,255,255,0.1)'
     },{
         label: 'CH',
         lineTension: 0,
         borderWidth:2,
-        borderColor: '#00C851',
+        borderColor: color_ch,
         pointRadius: 2,
-        pointBackgroundColor: '#00C851',
-        pointBorderColor: '#00C851',
+        pointBackgroundColor: color_ch,
+        pointBorderColor: color_ch,
         data: dati_ch,
         fill: 'rgba(255,255,255,0.1)'
     },{
         label: 'PE',
         lineTension: 0,
         borderWidth:2,
-        borderColor: '#4285F4',
+        borderColor: color_pe,
         pointRadius: 2,
-        pointBackgroundColor: '#4285F4',
-        pointBorderColor: '#4285F4',
+        pointBackgroundColor: color_pe,
+        pointBorderColor: color_pe,
         data: dati_pe,
         fill: 'rgba(255,255,255,0.1)'
     },{
         label: 'TE',
         lineTension: 0,
         borderWidth:2,
-        borderColor: '#aa66cc',
+        borderColor: color_te,
         pointRadius: 2,
-        pointBackgroundColor: '#aa66cc',
-        pointBorderColor: '#aa66cc',
+        pointBackgroundColor: color_te,
+        pointBorderColor: color_te,
         data: dati_te,
         fill: 'rgba(255,255,255,0.1)'
     }]
@@ -345,6 +364,14 @@ const casiChartAbrFn = function(dati){
                         fontColor:'#FFF'
                     }
                 }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label
+                        return label+": "+tooltipItem.yLabel.toFixed(0)
+                    }
+                }
             },
             plugins:{
                 datalabels: {
