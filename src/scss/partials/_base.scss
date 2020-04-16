@@ -54,6 +54,13 @@ nav {
         "pie-chart3 pie-chart4"
 }
 
+.chart-grid-mono {
+    display: grid;
+    grid-gap: 2em;
+    grid-template-columns: auto;
+    grid-template-rows: minmax(473px,1fr) 20px;
+}
+
 .pie-legend { grid-area: pie-legend }
 .pie-chart1 { grid-area: pie-chart1 }
 .pie-chart2 { grid-area: pie-chart2 }

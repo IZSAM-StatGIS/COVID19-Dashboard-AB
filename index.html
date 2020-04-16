@@ -86,26 +86,31 @@
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#andamento-chart-tab" data-toggle="tab">
-                                    <i class="fas fa-chart-line"></i> Andamento giornaliero
+                                    <i class="fas fa-chart-line"></i> Andamento
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#casi-chart-tab" data-toggle="tab">
-                                    <i class="fas fa-chart-line"></i> Casi per 100K abitanti 
+                                    <i class="fas fa-chart-line"></i> Casi / 100K abitanti 
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#hospitals-chart-tab" data-toggle="tab" id="hosp-tab">
-                                    <i class="fas fa-chart-pie"></i> Ospedalizzazione 
+                                    <i class="fas fa-chart-pie"></i> Ospedalizzati 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#hospitals-100k-chart-tab" data-toggle="tab" id="hosp-100k-tab">
+                                    <i class="fas fa-chart-bar"></i> Ospedalizzati / 100k abitanti
                                 </a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane active" id="andamento-chart-tab" role="tabpanel">
-                                <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
-                                    <div class="card-body chart-grid">
-                                        <div></div>
+                                <!-- div class="card bg-primary bg-dark text-white mb-3 custom-shadow"-->
+                                    <div class="mt-3 chart-grid">
+                                        <span style="height: 5px;"></span>
                                         <div>
                                             <canvas id="grafico-andamento-nazionale"></canvas>
                                         </div>
@@ -113,11 +118,11 @@
                                             <canvas id="grafico-andamento-abruzzo"></canvas>
                                         </div>
                                     </div>
-                                </div>
+                                </!-->
                             </div>
                             <div class="tab-pane" id="casi-chart-tab" role="tabpanel">
-                                <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
-                                    <div class="card-body chart-grid">
+                                <!-- div class="card bg-primary bg-dark text-white mb-3 custom-shadow"-->
+                                    <div class="mt-3 chart-grid">
                                         <div class="d-flex justify-content-center">
                                             <select id="casi-region-select" class="selectpicker" 
                                                 data-style="btn-outline-info-dark text-white btn-sm" 
@@ -156,11 +161,11 @@
                                             <canvas id="grafico-casi-abruzzo"></canvas>
                                         </div>
                                     </div>
-                                </div>
+                                </!-->
                             </div>
                             <div class="tab-pane" id="hospitals-chart-tab" role="tabpanel">
-                                <div class="card bg-primary bg-dark text-white mb-3 custom-shadow">
-                                    <div class="card-body chart-grid-quad">
+                                <!-- div class="card bg-primary bg-dark text-white mb-3 custom-shadow"-->
+                                    <div class="mt-3 chart-grid-quad">
                                         <div class="pie-legend d-flex d-flex-rows justify-content-center">
                                             <div style="height: 20px; width: 20px; background-color: #4285F4;"></div>&nbsp;
                                             <div>Isolamento domiciliare</div>&nbsp; - &nbsp;
@@ -181,6 +186,16 @@
                                         <div class="pie-chart4">
                                             <canvas id="grafico-hosp-lombardia"></canvas>
                                         </div>
+                                    </div>
+                                </!-->
+                            </div>
+                            <div class="tab-pane" id="hospitals-100k-chart-tab" role="tabpanel">
+                                <div class="mt-3 chart-grid-mono">
+                                    <div>
+                                        <canvas id="grafico-hosp-100k"></canvas>
+                                    </div>
+                                    <div class="bar-legend d-flex d-flex-rows justify-content-center font-italic text-sm">
+                                        L'intensit&agrave; del colore riflette la percentuale di ricoverati in terapia intensiva rispetto al totale
                                     </div>
                                 </div>
                             </div>

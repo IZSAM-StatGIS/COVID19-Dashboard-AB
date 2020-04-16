@@ -193,7 +193,9 @@ const casiChartNazFn = function(data){
         // Add selected regions datasets
         var selected_regions = $("#casi-region-select").val()
         selected_regions.forEach((regione, index) =>{
-            if (regione == 'valle_daosta') { var label = "Valle d'Aosta" } else {
+            if (regione == 'valle_daosta') { var label = "Valle d'Aosta" } 
+            else if (regione == 'emilia') { var label = "Emilia-Romagna" } 
+            else {
                 var label = regione.replace(regione.charAt(0), regione.charAt(0).toUpperCase())
             }
             if (index == 0) { var color = '#3F729B' }
@@ -215,7 +217,9 @@ const casiChartNazFn = function(data){
         // Add selected regions datasets
         var selected_regions = $("#casi-region-select").val()
         selected_regions.forEach((regione, index) =>{
-            if (regione == 'valle_daosta') { var label = "Valle d'Aosta" } else {
+            if (regione == 'valle_daosta') { var label = "Valle d'Aosta" } 
+            else if (regione == 'emilia') { var label = "Emilia-Romagna" } 
+            else {
                 var label = regione.replace(regione.charAt(0), regione.charAt(0).toUpperCase())
             }
             if (index == 0) { var color = '#3F729B' }
@@ -249,7 +253,6 @@ const casiNazionaleChart_add = function(dataset, label, color){
 
 var casiAbruzzoChart
 const casiChartAbrFn = function(dati){
-    console.log(dati)
 
     var dati_aq = [], dati_pe = [], dati_te = [], dati_ch = []
     var bullettin_dates = []

@@ -22,6 +22,7 @@ import $ from 'jquery'
 import { andamentoChartNazFn, andamentoChartAbrFn } from './chart-andamento'
 import { casiChartNazFn, casiChartAbrFn } from './chart-totale-casi-100k'
 import { hospitalChartFn } from './chart-ospedalizzazione'
+import { hosp100kFn } from './chart-ospedalizzazione-100k'
 
 // Cluster Style
 var getClusterLabel = function(feature){
@@ -245,6 +246,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 axios.get(apiUrl+'/regioni',{ params:{}}).then(function(response){
     // Populate trend chart 
     casiChartNazFn(response.data)
+    hosp100kFn(response.data, aggiornamento)
 })
 
 
