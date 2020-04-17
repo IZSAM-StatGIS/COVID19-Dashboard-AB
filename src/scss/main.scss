@@ -6,7 +6,11 @@
 /** BOOTSTRAP SASS MODULES 
     **********************
 */
-.card-header { padding:0.5rem 1.25rem !important; }
+.card-header { padding:0.1rem 0.75rem !important; }
+.card-body { padding:0.75rem !important; }
+
+.card-data { font-size: 26px; }
+.card-info { font-size: 12px; font-style: italic;}
 
 // Overrides
 $theme-colors: (
@@ -15,7 +19,8 @@ $theme-colors: (
   "info-dark": #3F729B,
   "warning-dark":#FF8800,
   "warning-darker":#e65100,
-  "danger-dark":#c62828
+  "danger-dark":#c62828,
+  "badge-info": #265891
 );
 
 .nav-tabs > li.active > a {

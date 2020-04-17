@@ -30,9 +30,56 @@
     </nav>
     <!-- Close Navbar -->
 
-    <!-- Main -->
+    <!-- Widgets -->
+    <widgets>
+        <div class="d-flex d-flex-rows">
+            <div class="card flex-grow-1 bg-badge-info text-white custom-shadow mr-1 ">
+                <div class="card-body">
+                    <span class="card-data" id="info-tamponi"></span></br>
+                    <span class="card-info">Tamponi</span>
+                </div>
+            </div>
+            <div class="card flex-grow-1 bg-badge-info text-white custom-shadow mr-1 ">
+                <div class="card-body">
+                    <span class="card-data" id="info-totale-casi"></span></br>
+                    <span class="card-info">Casi totali</span>
+                </div>
+            </div>
+            <div class="card flex-grow-1 bg-badge-info text-white custom-shadow mr-1">
+                <div class="card-body">
+                    <span class="card-data" id="info-totale-positivi"></span></br>
+                    <span class="card-info">Attualmente positivi</span>
+                </div>
+            </div>
+            <div class="card flex-grow-1 bg-badge-info text-white custom-shadow mr-1">
+                <div class="card-body">
+                    <span class="card-data" id="info-nuovi-positivi"></span></br>
+                    <span class="card-info">Nuovi positivi</span>
+                </div>
+            </div>
+            <div class="card flex-grow-1 bg-badge-info text-white custom-shadow mr-1">
+                <div class="card-body">
+                    <span class="card-data" id="info-ospedalizzati"></span></br>
+                    <span class="card-info">Ospedalizzati</span>
+                </div>
+            </div>
+            <div class="card flex-grow-1 bg-badge-info text-white custom-shadow">
+                <div class="card-body">
+                    <span class="card-data" id="info-intensiva"></span></br>
+                    <span class="card-info">Terapia intensiva</span>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-badge-info text-white custom-shadow">
+            <div class="card-body">
+                <span class="card-data" id="aggiornamento"></span><br/>
+                <span class="card-info">Ultimo aggiornamento</span>
+            </div>
+        </div>
+    </widgets>
+
     <!-- Map -->
-    <div id="map" class="custom-shadow">
+    <div id="map">
         <!-- Layer control -->
         <div class="ol-custom ol-unselectable ol-control">
             <button class="ol-zoom-in" type="button" title="Layer" id="layer-btn"><i class="fas fa-layer-group"></i></button>
@@ -70,15 +117,7 @@
         </div>
     </div>
     <div id="sidebar" class="p-0">
-        
-        <div id="widget-one" class="card bg-info-dark text-white custom-shadow">
-            <!-- div class="card-header"><i class="fab fa-elementor fa-lg fa-fw"></i> Widget Box 1</div -->
-            <div class="card-body" style="font-size:26px;">
-                <i class="fas fa-calendar-alt fa-lg"></i> Aggiornamento: <span id="aggiornamento">...</span>
-            </div>
-        </div>
-
-        <div id="widget-two" class="card bg-dark text-white custom-shadow">
+        <div class="card bg-dark text-white custom-shadow">
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
@@ -227,6 +266,19 @@
                     
                     <br/><br/>
 
+                    <table class="table table-striped table-sm table-dark">
+                        <thead>
+                            <tr><td>Indicatore</td><td>Descrizione</td></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Tamponi</td><td>Tamponi effettuati</td></tr>
+                            <tr><td>Casi totali</td><td>Totale casi positivi</td></tr>
+                            <tr><td>Attualmente positivi</td><td>Ospedalizzati + Isolamento domiciliare</td></tr>
+                            <tr><td>Nuovi positivi</td><td>Totale casi giorno corrente - totale casi giorno precedente</td></tr>
+                            <tr><td>Ospedalizzati</td><td>Totale ospedalizzati</td></tr>
+                            <tr><td>Terapia intensiva</td><td>Totale ricoverati in terapia intensiva</td></tr>
+                        </tbody>
+                    </table>
                     <!-- 
                     <p class="alert alert-warning-dark">
                         I dati sui <strong>Comuni</strong> sono raccolti da fonti <strong>non ufficiali</strong> e vengono aggiornati quando è possibile e soltanto dopo aver confrontato le diverse fonti a disposizione

@@ -3,20 +3,32 @@
 }
 
 body {
-    background-color: #8d8a8a;
+    background-color: #3E4551;
     display: grid;
     height: 100vh;
+    width: 100%;
     grid-gap: 0.5em;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 90px 1fr;
+    grid-template-rows: 90px 80px 1fr;
     grid-template-areas:
         "navbar navbar"
+        "widgets widgets"
         "map    sidebar"
 }
 
 nav {
     grid-area: navbar;
     background-color: $app-primary-dark;
+}
+
+widgets {
+    grid-area: widgets;
+    background-color: $app-primary-dark;
+    margin: 0 0.5em;
+    display: grid;
+    grid-gap: 0.5em;
+    grid-template-rows: 80px;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 #map {
@@ -32,7 +44,7 @@ nav {
     margin-bottom: 0.5em;
     display: grid;
     grid-gap: 0.2em;
-    grid-template-rows: 80px 1fr;
+    grid-template-rows: 1fr;
 }
 
 .chart-grid {
@@ -46,8 +58,8 @@ nav {
 .chart-grid-quad {
     display: grid;
     grid-gap: 1.5em;
-    grid-template-columns: repeat(2, 50%);
-    grid-template-rows: 30px minmax(273px,1fr) minmax(273px,1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 30px minmax(270px,1fr) minmax(270px,1fr);
     grid-template-areas: 
         "pie-legend pie-legend"
         "pie-chart1 pie-chart2"
@@ -58,7 +70,7 @@ nav {
     display: grid;
     grid-gap: 2em;
     grid-template-columns: auto;
-    grid-template-rows: minmax(473px,1fr) 20px;
+    grid-template-rows: minmax(600px,1fr) 20px;
 }
 
 .pie-legend { grid-area: pie-legend }
@@ -88,12 +100,23 @@ nav {
         grid-template-areas:
             "navbar"
             "map"
+            "widgets"
             "sidebar"
     }
 
     #map {
         grid-area: map;
         margin: 0 0.5em;
+    }
+
+    widgets {
+        grid-area: widgets;
+        background-color: $app-primary-dark;
+        margin: 0 0.5em;
+        display: grid;
+        grid-gap: 0.5em;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: 1fr;
     }
 
     #sidebar {

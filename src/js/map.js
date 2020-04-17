@@ -204,7 +204,7 @@ var aggiornamento = "";
 axios.get(apiUrl+'/andamento',{ params:{} }).then(function(response){
     aggiornamento = response.data[0].data;
     // Populate aggiornamento info box
-    document.querySelector('#aggiornamento').innerHTML = moment(aggiornamento).format('DD MMM YYYY')
+    document.querySelector('#aggiornamento').innerHTML = moment(aggiornamento).format('DD MMM YYYY, HH:mm')
     // Populate region distribution and cluster layers
     getProvincesDistribution(aggiornamento)
     // Populate municipalities distribution layer
@@ -221,6 +221,16 @@ axios.get(apiUrl+'/regioni',{
     } }).then(function(response){
     // Populate trend chart 
     andamentoChartAbrFn(response.data)
+    // Last update
+    var last = response.data.features[response.data.features.length - 1]
+    // Populate badges
+    document.querySelector('#info-tamponi').innerHTML = last.properties.tamponi
+    document.querySelector('#info-totale-casi').innerHTML = last.properties.totale_casi
+    document.querySelector('#info-totale-positivi').innerHTML = last.properties.totale_positivi
+    document.querySelector('#info-nuovi-positivi').innerHTML = last.properties.nuovi_positivi
+    document.querySelector('#info-ospedalizzati').innerHTML = last.properties.totale_ospedalizzati
+    document.querySelector('#info-intensiva').innerHTML = last.properties.terapia_intensiva
+    console.log(last.properties)
 })
 
 /* Workaround to make Firefox correctly loading the pies */
