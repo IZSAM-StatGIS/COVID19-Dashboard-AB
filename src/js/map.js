@@ -195,7 +195,6 @@ map.on('pointermove', function(e) {
     }
 });
 
-
 const apiUrl = "https://covid19-it-api.herokuapp.com"
 
 // Get COVID19 Summary Data
