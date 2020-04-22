@@ -140,7 +140,7 @@ var comuniLayer = new VectorImageLayer({
         format: new GeoJSON()
     })
 })
-// map.addLayer(comuniLayer)
+map.addLayer(comuniLayer)
 comuniLayer.set("name","Comuni")
 comuniLayer.setZIndex(11)
 // comuniLayer.setOpacity(0.5)
@@ -177,10 +177,11 @@ map.on('pointermove', function(e) {
             popup.setPosition(coordinate);
             var popupContent = document.getElementById('popup-content');
             if (layer.get('name')=='Comuni'){
-                popupContent.innerHTML = "<h5 class='text-danger'>"+feature.getProperties().denominazione_comune+" ("+feature.getProperties().sigla_provincia+")</h5>"
-                                            + "<span class='text-white'>Totale casi: "+feature.getProperties().totale_casi+"</span>"
-                                            + "<br/><span class='text-white'>Popolazione (2019): "+feature.getProperties().pop_2019+"</span>"
-                                            + "<br/><span class='text-white'>Dati del: "+moment(feature.getProperties().data).format('DD MMM YYYY')+"</span>"
+                popupContent.innerHTML = "<h5 class='text-warning'>"+feature.getProperties().COMUNE+" ("+feature.getProperties().PROVINCIA+")</h5>"
+                                            + "<span class='text-white'>Positivi: "+feature.getProperties().POSITIVI+"</span>"
+                                            + "<br/><span class='text-white'>Negativi: "+feature.getProperties().NEGATIVI+"</span>"
+                                            + "<br/><span class='text-white'>Popolazione (2019): "+feature.getProperties().POP_2019+"</span>"
+                                            + "<br/><span class='text-white'>Aggiornamento: "+moment(feature.getProperties().AGGIORNAMENTO).format('DD MMM YYYY')+"</span>"
             } else if (layer.get('name')=='Province' || layer.get('name')=='Cluster Province'){
                 popupContent.innerHTML = "<h5 class='text-white'>"+feature.getProperties().denominazione_provincia+": "+feature.getProperties().totale_casi+" casi</h5>"
             }
@@ -229,7 +230,7 @@ axios.get(apiUrl+'/regioni',{
     document.querySelector('#info-nuovi-positivi').innerHTML = last.properties.nuovi_positivi
     document.querySelector('#info-ospedalizzati').innerHTML = last.properties.totale_ospedalizzati
     document.querySelector('#info-intensiva').innerHTML = last.properties.terapia_intensiva
-    console.log(last.properties)
+    // console.log(last.properties)
 })
 
 /* Workaround to make Firefox correctly loading the pies */
@@ -344,11 +345,12 @@ const getProvincesDistribution = function(aggiornamento){
 // Get COVID19 Municipalities Data
 // ************************************************************
 const getComuniDistribution = function(aggiornamento){
+    console.log(aggiornamento)
     // 1 - Polygons
     axios.get(apiUrl+'/comuni/map',{
         params:{
-            data: '2020-04-03',
-            cod_reg: '13'
+            data: moment(aggiornamento).format('YYYY-DD-MM'),
+            sigla_prov: 'TE'
         }
     }).then(function(response){
         comuniLayer.getSource().clear()
@@ -357,7 +359,7 @@ const getComuniDistribution = function(aggiornamento){
         // Calculate color scale domain
         var color_scale_domain = []
         features.forEach(function(f){
-            color_scale_domain.push(f.properties.totale_casi)
+            color_scale_domain.push(f.properties.POSITIVI)
         })
         var collection = {"type": "FeatureCollection", "features": features};
         var featureCollection = new GeoJSON({featureProjection:'EPSG:3857'}).readFeatures(collection);
@@ -367,13 +369,13 @@ const getComuniDistribution = function(aggiornamento){
         var scale = chroma.scale('Reds').domain([0,Math.max.apply(Math, color_scale_domain)]);
         comuniLayer.getSource().forEachFeature(function (feature) {
             var comuniStyle;
-            if (feature.get('totale_casi') == 0){
+            if (feature.get('POSITIVI') == 0){
                 comuniStyle = new Style({
                     stroke: new Stroke({ color: "silver", width: 1 }),
                     fill: new Fill({ color: '#98a1a6' })
                 }); 
             } else {
-                var comuniColor = scale((feature.get('totale_casi')/feature.get('pop_2019'))*100000).hex(); 
+                var comuniColor = scale((feature.get('POSITIVI')/feature.get('POP_2019'))*100000).hex(); 
                 comuniStyle = new Style({
                     stroke: new Stroke({ color: "silver", width: 1 }),
                     fill: new Fill({ color: comuniColor })
@@ -404,14 +406,14 @@ document.querySelector("#prov-pt-toggler").addEventListener('change',(e)=>{
         provincesCluster.setVisible(false)
     }
 })
-/*
+
 document.querySelector("#com-pl-toggler").addEventListener('change',(e)=>{
     if(e.target.checked) {
         comuniLayer.setVisible(true)
     } else {
         comuniLayer.setVisible(false)
     }
-})*/
+})
 
 document.querySelector("#prov-pl-toggler").addEventListener('change',(e)=>{
     if(e.target.checked) {
