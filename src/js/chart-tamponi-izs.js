@@ -16,9 +16,9 @@ const tamponiIZSChartFn = function(){
     var negativi = []
 
     axios.get('https://covid19-it-api.herokuapp.com/comuni',{ params:{
-        sigla_prov:'TE'
+        // sigla_prov:'TE'
     } }).then(function(response){
-        
+        // console.log(response)
         response.data.forEach(e => {
             if (e.ESITO == 'POS'){
                 positivi.push(e)
@@ -27,10 +27,9 @@ const tamponiIZSChartFn = function(){
             }
         });
         
-        /* console.log(positivi)
-        console.log(negativi) */
+        /* console.log(positivi.length)
+        console.log(negativi.length) */
         
-
         var grouped_positivi = lodash.groupBy(positivi,"DATA_TAMPONE");
         var grouped_negativi = lodash.groupBy(negativi,"DATA_TAMPONE");
 

@@ -202,6 +202,17 @@ map.on('pointermove', function(e) {
     }
 });
 
+/*
+map.on('click',function(e){
+    var pixel = e.map.getEventPixel(e.originalEvent);
+    var hit = e.map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+    	if (layer && layer.get('name') == 'Comuni'){
+            // console.log(feature)
+            $('#chartModal').modal('show')
+        }
+    })
+})*/
+
 const apiUrl = "https://covid19-it-api.herokuapp.com"
 
 // Get COVID19 Summary Data

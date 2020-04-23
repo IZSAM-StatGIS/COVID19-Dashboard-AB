@@ -135,11 +135,6 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#esiti-chart-tab" data-toggle="tab">
-                                    <i class="fas fa-chart-bar"></i> Tamponi IZSAM
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="#hospitals-chart-tab" data-toggle="tab" id="hosp-tab">
                                     <i class="fas fa-chart-pie"></i> Ospedalizzati 
                                 </a>
@@ -147,6 +142,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#hospitals-100k-chart-tab" data-toggle="tab" id="hosp-100k-tab">
                                     <i class="fas fa-chart-bar"></i> Ospedalizzati / 100k abitanti
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#esiti-chart-tab" data-toggle="tab">
+                                    <i class="fas fa-chart-bar"></i> Tamponi IZSAM
                                 </a>
                             </li>
                         </ul>
@@ -209,18 +209,6 @@
                                 </!-->
                             </div>
                             
-                            <div class="tab-pane" id="esiti-chart-tab" role="tabpanel">
-                                <div class="mt-1 chart-grid">
-                                    <span style="height: 1px;"></span>
-                                    <div>
-                                        <canvas id="grafico-tamponi-negativi"></canvas>
-                                    </div>
-                                    <div class="mt-1">
-                                        <canvas id="grafico-tamponi-positivi"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            
                             <div class="tab-pane" id="hospitals-chart-tab" role="tabpanel">
                                 <!-- div class="card bg-primary bg-dark text-white mb-3 custom-shadow"-->
                                     <div class="mt-3 chart-grid-quad">
@@ -254,6 +242,17 @@
                                     </div>
                                     <div class="bar-legend d-flex d-flex-rows justify-content-center font-italic text-sm">
                                         L'intensit&agrave; del colore riflette la percentuale di ricoverati in terapia intensiva rispetto al totale
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="esiti-chart-tab" role="tabpanel">
+                                <div class="mt-1 chart-grid">
+                                    <span style="height: 1px;"></span>
+                                    <div>
+                                        <canvas id="grafico-tamponi-negativi"></canvas>
+                                    </div>
+                                    <div class="mt-1">
+                                        <canvas id="grafico-tamponi-positivi"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -310,6 +309,23 @@
                     </div>
 
                     <p class="mt-2 text-center font-italic" style="font-size: small;">Browser supportati: Google Chrome, Mozilla Firefox, Microsoft Edge, Safari</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart modal -->
+    <div class="modal fade" id="chartModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="nome-comune"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-dark text-white">
+                    Test
                 </div>
             </div>
         </div>
