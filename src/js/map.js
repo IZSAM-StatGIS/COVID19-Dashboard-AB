@@ -13,7 +13,7 @@ import {Fill, Stroke, Style, Text, Image, Circle} from 'ol/style';
 import XYZ from 'ol/source/XYZ'
 import Overlay from 'ol/Overlay'
 
-// Node Mosules
+// Node Modules
 import axios from 'axios'
 import moment from 'moment'
 import chroma from 'chroma-js'
@@ -21,6 +21,7 @@ import $ from 'jquery'
 
 import { andamentoChartNazFn, andamentoChartAbrFn } from './chart-andamento'
 import { casiChartNazFn, casiChartAbrFn } from './chart-totale-casi-100k'
+import { tamponiIZSChartFn } from './chart-tamponi-izs'
 import { hospitalChartFn } from './chart-ospedalizzazione'
 import { hosp100kFn } from './chart-ospedalizzazione-100k'
 
@@ -76,7 +77,7 @@ var clusterStyle = function(feature){
 		    textBaseline: 'middle',
 		    font: '10px Verdana',
 		    overflow:false,
-            text: feature.get('totale_casi').toString(),
+            text: feature.get('sigla_provincia').toString()+": "+feature.get('totale_casi').toString(),
 		    fill: new Fill({color: '#000'}),
 		    stroke: new Stroke({color: '#FFF', width: 3})
 		})
@@ -177,15 +178,20 @@ map.on('pointermove', function(e) {
             popup.setPosition(coordinate);
             var popupContent = document.getElementById('popup-content');
             if (layer.get('name')=='Comuni'){
-                popupContent.innerHTML = "<h5 class='text-warning'>"+feature.getProperties().COMUNE+" ("+feature.getProperties().PROVINCIA+")</h5>"
-                                            + "<span class='text-white'>Positivi: "+feature.getProperties().POSITIVI+"</span>"
-                                            + "<br/><span class='text-white'>Negativi: "+feature.getProperties().NEGATIVI+"</span>"
+                popupContent.innerHTML = "<p class='text-warning'><strong>"+feature.getProperties().COMUNE+" ("+feature.getProperties().PROVINCIA+")</strong></p>"
+                                            + "<span class='text-white'>Tamponi Positivi/100k: "+((feature.get('POSITIVI')/feature.get('POP_2019'))*100000).toFixed(0)+"</span>"
+                                            + "<br/><span class='text-white'>Tamponi Positivi: "+feature.getProperties().POSITIVI+"</span>"
+                                            + "<br/><span class='text-white'>Tamponi Negativi: "+feature.getProperties().NEGATIVI+"</span>"
                                             + "<br/><span class='text-white'>Popolazione (2019): "+feature.getProperties().POP_2019+"</span>"
                                             + "<br/><span class='text-white'>Aggiornamento: "+moment(feature.getProperties().AGGIORNAMENTO).format('DD MMM YYYY')+"</span>"
-            } else if (layer.get('name')=='Province' || layer.get('name')=='Cluster Province'){
-                popupContent.innerHTML = "<h5 class='text-white'>"+feature.getProperties().denominazione_provincia+": "+feature.getProperties().totale_casi+" casi</h5>"
+            } else if (layer.get('name')=='Province'){
+                popupContent.innerHTML = "<p class='text-warning'><strong>"+feature.getProperties().denominazione_provincia+"</strong></p>"
+                                            +"<span class='text-white'>Casi totali: "+feature.getProperties().totale_casi+"</span>"
+                                            +"<br/><span class='text-white'>Casi totali/100k: "+((feature.get('totale_casi')/feature.get('pop_2019'))*100000).toFixed(0)+"</span>"
+            } else if (layer.get('name')=='Cluster Province'){
+                // popupContent.innerHTML = "<p class='text-warning'><strong>"+feature.getProperties().denominazione_provincia+"</strong></p>";
             }
-            return layer.get('name') === 'Comuni' || layer.get('name') === 'Cluster Province' || layer.get('name') === 'Province';
+            return layer.get('name') === 'Comuni' || layer.get('name') === 'Province' /* || layer.get('name') === 'Cluster Province' */;
         }
     });
     if (hit){
@@ -211,6 +217,8 @@ axios.get(apiUrl+'/andamento',{ params:{} }).then(function(response){
     getComuniDistribution(aggiornamento)
     // Populate trend charts
     andamentoChartNazFn(response.data)
+    // Populate tamponi IZS chart
+    tamponiIZSChartFn()
 })
 
 // Get COVID19 Summary Data for Abruzzo
@@ -288,8 +296,12 @@ const getProvincesDistribution = function(aggiornamento){
         var color_scale_domain = []
         features.forEach(function(f){
             if (f.properties.codice_regione == 13) {
+                // console.log(f.properties)
                 abruzzo.push(f)
-                color_scale_domain.push(f.properties.totale_casi)
+                // scala valori assoluti
+                // color_scale_domain.push(f.properties.totale_casi)
+                // scala casi su 100k abitanti
+                color_scale_domain.push((f.properties.totale_casi/f.properties.pop_2019)*100000)
             }
         })
         var collection = {"type": "FeatureCollection", "features": abruzzo};
@@ -306,7 +318,7 @@ const getProvincesDistribution = function(aggiornamento){
                     fill: new Fill({ color: '#98a1a6' })
                 }); 
             } else {
-                var provColor = scale(feature.get('totale_casi')).hex(); 
+                var provColor = scale((feature.get('totale_casi')/feature.get('pop_2019'))*100000).hex(); 
                 provStyle = new Style({
                     stroke: new Stroke({ color: "#FFF", width: 2 }),
                     fill: new Fill({ color: provColor })
@@ -345,12 +357,11 @@ const getProvincesDistribution = function(aggiornamento){
 // Get COVID19 Municipalities Data
 // ************************************************************
 const getComuniDistribution = function(aggiornamento){
-    console.log(aggiornamento)
     // 1 - Polygons
     axios.get(apiUrl+'/comuni/map',{
         params:{
-            data: moment(aggiornamento).format('YYYY-MM-DD'),
-            sigla_prov: 'TE'
+            data: moment(aggiornamento).format('YYYY-MM-DD')
+            // sigla_prov: 'TE'
         }
     }).then(function(response){
         comuniLayer.getSource().clear()
@@ -359,14 +370,14 @@ const getComuniDistribution = function(aggiornamento){
         // Calculate color scale domain
         var color_scale_domain = []
         features.forEach(function(f){
-            color_scale_domain.push(f.properties.POSITIVI)
+            color_scale_domain.push((f.properties.POSITIVI/f.properties.POP_2019)*100000)
         })
         var collection = {"type": "FeatureCollection", "features": features};
         var featureCollection = new GeoJSON({featureProjection:'EPSG:3857'}).readFeatures(collection);
         // Update provinces layer
         comuniLayer.getSource().addFeatures(featureCollection);
         // Style Provinces
-        var scale = chroma.scale('Reds').domain([0,Math.max.apply(Math, color_scale_domain)]);
+        var scale = chroma.scale('Blues').domain([0,Math.max.apply(Math, color_scale_domain)]);
         comuniLayer.getSource().forEachFeature(function (feature) {
             var comuniStyle;
             if (feature.get('POSITIVI') == 0){
@@ -422,13 +433,13 @@ document.querySelector("#prov-pl-toggler").addEventListener('change',(e)=>{
         provincesLayer.setVisible(false)
     }
 })
-
+/*
 var legendContainer = document.querySelector('#legend-container')
 var legendColors = chroma.brewer.OrRd
 legendColors.forEach(color => {
     var legendElement = '<div class="color-step" style="background-color:'+color+'"></div>'
     legendContainer.innerHTML += legendElement
 })
-
+*/
 
 

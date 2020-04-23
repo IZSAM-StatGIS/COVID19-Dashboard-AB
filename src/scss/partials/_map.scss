@@ -45,6 +45,11 @@ ul.layer-list {
     list-style-type: none;
     margin: 5px 55px 5px 5px;
     padding: 0;
+    font-size: 12px;
+}
+
+.custom-control-label {
+    padding: 5px 0;
 }
 
 .legend-br {
@@ -83,7 +88,7 @@ ul.layer-list {
     border: 2px solid rgb(0, 0, 0);
     bottom: 12px;
     left: -50px;
-    min-width: 220px;
+    min-width: 280px;
 }
 .ol-popup:after, .ol-popup:before {
     top: 100%;

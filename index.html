@@ -96,20 +96,21 @@
                 <li>
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="com-pl-toggler" name="layer-chk" checked>
-                        <label class="custom-control-label" for="com-pl-toggler">Comuni <strong>TE</strong> per 100k abitanti</label>
+                        <label class="custom-control-label" for="com-pl-toggler">Tamponi Positivi <strong>(TE)</strong> per 100k abitanti</label>
                     </div>
                 </li>
                 
                 <li>
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="prov-pl-toggler" name="layer-chk" checked>
-                        <label class="custom-control-label" for="prov-pl-toggler">Province</label>
+                        <label class="custom-control-label" for="prov-pl-toggler">Casi totali <strong>per provincia</strong> per 100k abitanti</label>
                     </div>
                 </li>
             </ul>
+            <!--
             <br class="legend-br"/>
             <div id="legend-container"></div>
-            <div id="legend-text">Num. contagi crescente <i class="fas fa-arrow-right"></i></div>
+            <div id="legend-text">Num. contagi crescente <i class="fas fa-arrow-right"></i></div> -->
         </div>
         <!-- Popup -->
         <div id="popup" class="ol-popup">
@@ -122,7 +123,7 @@
                 <div class="row">
                     <div class="col-12">
                         <!-- Tab navs -->
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs" style="font-size: 13px;">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#andamento-chart-tab" data-toggle="tab">
                                     <i class="fas fa-chart-line"></i> Andamento
@@ -133,6 +134,13 @@
                                     <i class="fas fa-chart-line"></i> Casi / 100K abitanti 
                                 </a>
                             </li>
+                            <!-- 
+                            <li class="nav-item">
+                                <a class="nav-link" href="#esiti-chart-tab" data-toggle="tab">
+                                    <i class="fas fa-chart-bar"></i> Tamponi esaminati 
+                                </a>
+                            </li>
+                            -->
                             <li class="nav-item">
                                 <a class="nav-link" href="#hospitals-chart-tab" data-toggle="tab" id="hosp-tab">
                                     <i class="fas fa-chart-pie"></i> Ospedalizzati 
@@ -202,6 +210,11 @@
                                     </div>
                                 </!-->
                             </div>
+                            <!--
+                            <div class="tab-pane" id="esiti-chart-tab" role="tabpanel">
+
+                            </div>
+                            -->
                             <div class="tab-pane" id="hospitals-chart-tab" role="tabpanel">
                                 <!-- div class="card bg-primary bg-dark text-white mb-3 custom-shadow"-->
                                     <div class="mt-3 chart-grid-quad">
@@ -281,7 +294,8 @@
                     </table>
                     
                     <p class="alert alert-info-dark">
-                        I dati sui <strong>Comuni</strong> derivano dall'attività diagnostica di IZSAM, che ogni giorno accetta e processa i tamponi provenienti dal territorio
+                        La distribuzione spaziale del numero di tamponi positivi per 100k abitanti nella provincia di Teramo, deriva dall'attivit&agrave; diagnostica di IZSAM. 
+                        Sono considerati solo i dati per cui &egrave; disponibile l'informazione sul comune di residenza/domicilio
                     </p>
                     
                     <div class="text-center">
