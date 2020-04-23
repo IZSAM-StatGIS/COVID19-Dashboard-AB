@@ -349,7 +349,7 @@ const getComuniDistribution = function(aggiornamento){
     // 1 - Polygons
     axios.get(apiUrl+'/comuni/map',{
         params:{
-            data: moment(aggiornamento).format('YYYY-DD-MM'),
+            data: moment(aggiornamento).format('YYYY-MM-DD'),
             sigla_prov: 'TE'
         }
     }).then(function(response){
