@@ -3,16 +3,19 @@ import 'chartjs-plugin-datalabels'
 import moment from 'moment'
 import axios from 'axios'
 import lodash from 'lodash'
+import $ from 'jquery'
 
 var tamponiIZSChartPos;
 var tamponiIZSChartNeg;
 
 const tamponiIZSChartFn = function(prov){
+    
     if (prov){
 
     } else {
-        prov = 'TE'
+        prov = 'TE,PE,CH,AQ'
     }
+
     // Retrieve data from the server
     var positivi = []
     var negativi = []
@@ -42,6 +45,7 @@ const tamponiIZSChartFn = function(prov){
             positivi_dates.push(moment(key).format('DD MMM'))
             positivi_dataset.push(item.length)
         })
+
         // Grafico positivi
         var ctx_pos = document.getElementById('grafico-tamponi-positivi').getContext('2d');
         if ( tamponiIZSChartPos ) { tamponiIZSChartPos.destroy(); }
@@ -173,10 +177,20 @@ const tamponiIZSChartFn = function(prov){
     })
 }
 
-document.querySelector("#prov-tamponi-select").addEventListener('change', (e) => {
-    var select = document.querySelector("#prov-tamponi-select")
-    var prov  = select.options[select.selectedIndex].value
-    tamponiIZSChartFn(prov)
-});
+document.querySelector("#prov-tamponi-btn").addEventListener('click', (e) => {
+    
+    var prov_arr = $("#prov-tamponi-select").val()
+    var prov_str = prov_arr.join(',');
+    tamponiIZSChartFn(prov_str)
+})
+
+document.querySelector("#prov-tamponi-reset-btn").addEventListener('click', (e) => {
+    
+    $("#prov-tamponi-select").selectpicker('val', ['TE','PE','AQ','CH']);
+    var prov_arr = $("#prov-tamponi-select").val()
+    var prov_str = prov_arr.join(',');
+    tamponiIZSChartFn(prov_str)
+})
+
 
 export { tamponiIZSChartFn }
