@@ -119,7 +119,7 @@ const tamponiIZSChartFn = function(prov){
             data: {
                 labels: negativi_dates.reverse(),
                 datasets: [{
-                    label: 'Tamponi positivi',
+                    label: 'Tamponi negativi',
                     fill: false,
                     backgroundColor: "#007E33",
                     borderColor: "#00FF00",
