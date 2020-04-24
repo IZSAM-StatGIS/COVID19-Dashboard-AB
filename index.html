@@ -246,8 +246,18 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="esiti-chart-tab" role="tabpanel">
-                                <div class="mt-1 chart-grid">
-                                    <span style="height: 1px;"></span>
+                                <div class="mt-3 chart-grid">
+                                    <div class="d-flex flex-direction-column justify-content-center">
+                                        <span style="padding: 2px 0;">Selezionare una provincia</span>&nbsp;
+                                        <select id="prov-tamponi-select" class="selectpicker" 
+                                            data-style="btn-outline-info-dark text-white btn-sm" 
+                                                data-live-search="false" data-dropup-auto="false">
+                                            <option value="TE" selected>Teramo</option>
+                                            <option value="PE">Pescara</option>
+                                            <option value="AQ">L'Aquila</option>
+                                            <option value="CH">Chieti</option>
+                                        </select>
+                                    </div>
                                     <div>
                                         <canvas id="grafico-tamponi-negativi"></canvas>
                                     </div>

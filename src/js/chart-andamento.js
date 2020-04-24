@@ -17,7 +17,7 @@ const andamentoChartNazFn = function(data){
     });
 
     var datasets = [{
-        label: 'Nuovi positivi',
+        label: 'Nuovi casi positivi',
         lineTension: 0,
         borderWidth:2,
         borderColor: '#ff4444',
@@ -108,7 +108,7 @@ const andamentoChartAbrFn = function(data){
     });
 
     var datasets = [{
-        label: 'Nuovi positivi',
+        label: 'Nuovi casi positivi',
         lineTension: 0,
         borderWidth:2,
         borderColor: '#0099CC',

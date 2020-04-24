@@ -391,18 +391,18 @@ const getComuniDistribution = function(aggiornamento){
         var scale = chroma.scale('Blues').domain([0,Math.max.apply(Math, color_scale_domain)]);
         comuniLayer.getSource().forEachFeature(function (feature) {
             var comuniStyle;
-            if (feature.get('POSITIVI') == 0){
+            /*if (feature.get('POSITIVI') == 0){
                 comuniStyle = new Style({
                     stroke: new Stroke({ color: "silver", width: 1 }),
                     fill: new Fill({ color: '#98a1a6' })
                 }); 
-            } else {
+            } else {*/
                 var comuniColor = scale((feature.get('POSITIVI')/feature.get('POP_2019'))*100000).hex(); 
                 comuniStyle = new Style({
                     stroke: new Stroke({ color: "silver", width: 1 }),
                     fill: new Fill({ color: comuniColor })
                 }); 
-            }
+            //}
             feature.setStyle(comuniStyle); // set feature Style
         });
 

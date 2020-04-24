@@ -1,22 +1,24 @@
 import 'chart.js'
 import 'chartjs-plugin-datalabels'
 import moment from 'moment'
-import chroma from 'chroma-js'
-import $ from 'jquery'
 import axios from 'axios'
 import lodash from 'lodash'
 
 var tamponiIZSChartPos;
 var tamponiIZSChartNeg;
 
-const tamponiIZSChartFn = function(){
+const tamponiIZSChartFn = function(prov){
+    if (prov){
 
+    } else {
+        prov = 'TE'
+    }
     // Retrieve data from the server
     var positivi = []
     var negativi = []
 
     axios.get('https://covid19-it-api.herokuapp.com/comuni',{ params:{
-        // sigla_prov:'TE'
+        sigla_prov: prov
     } }).then(function(response){
         // console.log(response)
         response.data.forEach(e => {
@@ -86,26 +88,16 @@ const tamponiIZSChartFn = function(){
                     }]
                 },
                 tooltips: {
-                    enabled:false
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var label = data.datasets[tooltipItem.datasetIndex].label
+                            return label+": "+tooltipItem.yLabel.toFixed(0)
+                        }
+                    }
                 },
                 plugins:{
                     datalabels: {
-                        color: '#FFF',
-                        anchor: 'end',
-                        align: 'end',
-                        labels: {
-                            title: {
-                                font: {
-                                    weight: 'bold'
-                                }
-                            },
-                            value: {
-                                color: 'green'
-                            }
-                        },
-                        formatter: function(value, context) {
-                            return value.toFixed(0);
-                        }
+                        display:false
                     }
                 }
             }
@@ -164,35 +156,27 @@ const tamponiIZSChartFn = function(){
                     }]
                 },
                 tooltips: {
-                    enabled:false
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var label = data.datasets[tooltipItem.datasetIndex].label
+                            return label+": "+tooltipItem.yLabel.toFixed(0)
+                        }
+                    }
                 },
                 plugins:{
                     datalabels: {
-                        color: '#FFF',
-                        anchor: 'end',
-                        align: 'end',
-                        labels: {
-                            title: {
-                                font: {
-                                    weight: 'bold'
-                                }
-                            },
-                            value: {
-                                color: 'green'
-                            }
-                        },
-                        formatter: function(value, context) {
-                            return value.toFixed(0);
-                        }
+                        display:false
                     }
                 }
             }
-            
         })
-
     })
-
-    
 }
+
+document.querySelector("#prov-tamponi-select").addEventListener('change', (e) => {
+    var select = document.querySelector("#prov-tamponi-select")
+    var prov  = select.options[select.selectedIndex].value
+    tamponiIZSChartFn(prov)
+});
 
 export { tamponiIZSChartFn }
