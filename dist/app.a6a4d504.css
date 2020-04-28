@@ -10606,7 +10606,7 @@ body {
   width: 100%;
   grid-gap: 0.5em;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 90px 80px 1fr;
+  grid-template-rows: 94px 80px 1fr;
   grid-template-areas: "navbar navbar" "widgets widgets" "map    sidebar";
 }
 
