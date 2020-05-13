@@ -16,35 +16,25 @@ const tamponiIZSChartFn = function(prov){
         prov = 'TE,PE,CH,AQ'
     }
 
-    // Retrieve data from the server
-    var positivi = []
-    var negativi = []
-
     axios.get('https://covid19-it-api.herokuapp.com/comuni',{ params:{
         sigla_prov: prov
     } }).then(function(response){
-        // console.log(response)
-        response.data.forEach(e => {
-            if (e.ESITO == 'POS'){
-                positivi.push(e)
-            } else if (e.ESITO == 'NEG'){
-                negativi.push(e)
-            }
-        });
         
-        /* console.log(positivi.length)
-        console.log(negativi.length) */
-        
-        var grouped_positivi = lodash.groupBy(positivi,"DATA_TAMPONE");
-        var grouped_negativi = lodash.groupBy(negativi,"DATA_TAMPONE");
-
-        // Ricava Dataset positivi
+        var grouped = lodash.groupBy(response.data,"DATA_TAMPONE")
+        // console.log(grouped)
+        var negativi_dataset = []
         var positivi_dataset = []
-        var positivi_dates = []
-        lodash.forEach(grouped_positivi,function(item, key){
-            positivi_dates.push(moment(key).format('DD MMM'))
-            positivi_dataset.push(item.length)
+        var dates = []
+
+        lodash.forEach(grouped,function(item, key){
+            dates.push(moment(key).format('DD MMM'))
+            negativi_dataset.push(item.filter( e => e.ESITO == "NEG").length)
+            positivi_dataset.push(item.filter( e => e.ESITO == "POS").length)
         })
+
+        negativi_dataset.reverse()
+        positivi_dataset.reverse()
+        dates.reverse()
 
         // Grafico positivi
         var ctx_pos = document.getElementById('grafico-tamponi-positivi').getContext('2d');
@@ -53,13 +43,13 @@ const tamponiIZSChartFn = function(prov){
         tamponiIZSChartPos = new Chart(ctx_pos, {
             type: 'bar',
             data: {
-                labels: positivi_dates.reverse(),
+                labels: dates,
                 datasets: [{
                     label: 'Tamponi positivi',
                     fill: false,
                     backgroundColor: "#ff4444",
                     borderColor: "#CC0000",
-                    data: positivi_dataset.reverse(),
+                    data: positivi_dataset
                 }]
             },
             options: {
@@ -107,13 +97,16 @@ const tamponiIZSChartFn = function(prov){
             }
         })
 
+
         // Ricava Dataset negativi
+        /*
         var negativi_dataset = []
         var negativi_dates = []
         lodash.forEach(grouped_negativi,function(item, key){
             negativi_dates.push(moment(key).format('DD MMM'))
             negativi_dataset.push(item.length)
-        })
+        })*/
+        
         // Grafico negativi
         var ctx_neg = document.getElementById('grafico-tamponi-negativi').getContext('2d');
         if ( tamponiIZSChartNeg ) { tamponiIZSChartNeg.destroy(); }
@@ -121,13 +114,13 @@ const tamponiIZSChartFn = function(prov){
         tamponiIZSChartNeg = new Chart(ctx_neg, {
             type: 'bar',
             data: {
-                labels: negativi_dates.reverse(),
+                labels: dates,
                 datasets: [{
                     label: 'Tamponi negativi',
                     fill: false,
                     backgroundColor: "#007E33",
                     borderColor: "#00FF00",
-                    data: negativi_dataset.reverse(),
+                    data: negativi_dataset
                 }]
             },
             options: {
