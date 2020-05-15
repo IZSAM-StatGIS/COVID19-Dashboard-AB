@@ -27,7 +27,7 @@ const tamponiIZSChartFn = function(prov){
         var dates = []
 
         lodash.forEach(grouped,function(item, key){
-            dates.push(moment(key).format('DD MMM'))
+            dates.push(moment(key).locale('it').format('DD MMM'))
             negativi_dataset.push(item.filter( e => e.ESITO == "NEG").length)
             positivi_dataset.push(item.filter( e => e.ESITO == "POS").length)
         })
@@ -96,16 +96,6 @@ const tamponiIZSChartFn = function(prov){
                 }
             }
         })
-
-
-        // Ricava Dataset negativi
-        /*
-        var negativi_dataset = []
-        var negativi_dates = []
-        lodash.forEach(grouped_negativi,function(item, key){
-            negativi_dates.push(moment(key).format('DD MMM'))
-            negativi_dataset.push(item.length)
-        })*/
         
         // Grafico negativi
         var ctx_neg = document.getElementById('grafico-tamponi-negativi').getContext('2d');

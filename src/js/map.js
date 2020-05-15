@@ -16,6 +16,7 @@ import Overlay from 'ol/Overlay'
 // Node Modules
 import axios from 'axios'
 import moment from 'moment'
+import 'moment/locale/it'
 import chroma from 'chroma-js'
 import $ from 'jquery'
 
