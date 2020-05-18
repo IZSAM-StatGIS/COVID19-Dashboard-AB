@@ -2,11 +2,12 @@ import 'chart.js'
 import 'chartjs-plugin-datalabels'
 import moment from 'moment'
 import axios from 'axios'
+import { locale } from 'moment'
 
 const hospitalChartFn = function(cod_reg, title, canvas_id){
 
-    var aggiornamento = moment(new Date(document.querySelector("#aggiornamento").textContent)).format('YYYY-MM-DD')
-
+    var aggiornamento = moment(document.querySelector("#aggiornamento").textContent,'DD MMM YYYY, HH:ss').locale('it').format('YYYY-MM-DD')
+    
     axios.get('https://covid19-it-api.herokuapp.com/regioni',{ params:{
         cod_reg: cod_reg,
         data: aggiornamento
