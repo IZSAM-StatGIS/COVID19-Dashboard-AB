@@ -22,9 +22,11 @@ import $ from 'jquery'
 
 import { andamentoChartNazFn, andamentoChartAbrFn } from './chart-andamento'
 import { casiChartNazFn, casiChartAbrFn } from './chart-totale-casi-100k'
+import { tamponiConferitiChartFn } from './chart-tamponi-conferiti-izs'
 import { tamponiIZSChartFn } from './chart-tamponi-izs'
 import { hospitalChartFn } from './chart-ospedalizzazione'
 import { hosp100kFn } from './chart-ospedalizzazione-100k'
+import { tamponiConferitiFn } from './chart-tamponi-conferiti-izs'
 
 // Cluster Style
 var getClusterLabel = function(feature){
@@ -255,6 +257,7 @@ axios.get(apiUrl+'/regioni',{
 
 /* Workaround to make Firefox correctly loading the pies */
 /* ***************************************************** */
+/*
 var hospChartsLoaded = false;
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     
@@ -269,19 +272,22 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         }
     }
 })
-/* ****************************************************** */
+*/
 
 // Get COVID19 Summary Data for Italy
 // ************************************************************
+/*
 axios.get(apiUrl+'/regioni',{ params:{}}).then(function(response){
     // Populate trend chart 
     casiChartNazFn(response.data)
     hosp100kFn(response.data, aggiornamento)
 })
+*/
 
 
 // Get COVID19 Provinces Data for Abruzzo
 // ************************************************************
+/*
 axios.get(apiUrl+'/province',{ params:{ cod_reg: 13 }}).then(function(response){
     var chartData = []
     response.data.features.forEach(feature => {
@@ -290,6 +296,7 @@ axios.get(apiUrl+'/province',{ params:{ cod_reg: 13 }}).then(function(response){
     // trend Chart for Each Province
     casiChartAbrFn(chartData)
 })
+*/
 
 // Get COVID19 Provinces Data
 // ************************************************************
@@ -365,6 +372,39 @@ const getProvincesDistribution = function(aggiornamento){
     })
 
 }
+
+// Get ASL Data
+// ************************************************************
+const getAslSummary = () => {
+    axios.get(apiUrl+'/asl/totals').then(function(response){
+        // console.log(response.data)
+        response.data.forEach(d => {
+            var richiedente = ''
+            if (d.ASL_RICHIEDENTE == 'AQ'){
+                richiedente = "AUSL 1 - L'Aquila"
+            } else if (d.ASL_RICHIEDENTE == 'CH'){
+                richiedente = "AUSL 2 - Chieti, Lanciano, Vasto"
+            } else if (d.ASL_RICHIEDENTE == 'PE'){
+                richiedente = "AUSL 3 - Pescara"
+            } else {
+                richiedente = "AUSL 4 - Teramo"
+            }
+            // Alt+9 to do the backthick 
+            var tr = `<tr><td>${richiedente}</td><td>${d.IN_CORSO}</td><td>${d.ESAMINATI}</td><td>${d.TOTALE}</td></tr>`
+            $('#accettati-table').find('tbody').append(tr);
+        })
+
+        // Sum values for variables
+        var tot_in_corso = response.data.reduce((a,b) => a + b.IN_CORSO, 0)
+        var tot_esaminati = response.data.reduce((a,b) => a + b.ESAMINATI, 0)
+        var tot_totale = response.data.reduce((a,b) => a + b.TOTALE, 0)
+        var last_row = `<tr><td>Totale AUSL Abruzzo</td><td>${tot_in_corso}</td><td>${tot_esaminati}</td><td>${tot_totale}</td></tr>`
+        $('#accettati-table').find('tbody').append(last_row);
+    })
+}
+
+getAslSummary()
+tamponiConferitiChartFn()
 
 // Get COVID19 Municipalities Data
 // ************************************************************

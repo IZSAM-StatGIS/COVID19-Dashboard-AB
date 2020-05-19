@@ -28,7 +28,7 @@
             </span>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <!-- button class="btn btn-link text-white" id="show-tools-btn" data-toggle="modal"><i class="fas fa-file-pdf fa-lg"></i> Report PDF</!-->
+                    <a href="https://github.com/IZSAM-StatGIS/COVID19-Abruzzo/raw/master/report/report.pdf" class="btn btn-link text-white" download="report.pdf"><i class="fas fa-file-pdf fa-lg"></i> Scarica report</a>
                     <button class="btn btn-link text-white" id="show-tools-btn" data-toggle="modal" data-target="#infoModal"><i class="fas fa-question-circle fa-lg"></i> Info</button>
                 </li>
             </ul>
@@ -129,12 +129,13 @@
                 <div class="row">
                     <div class="col-12">
                         <!-- Tab navs -->
-                        <ul class="nav nav-tabs" style="font-size: 13px;">
+                        <ul class="nav nav-tabs">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#andamento-chart-tab" data-toggle="tab">
                                     <i class="fas fa-chart-line"></i> Andamento
                                 </a>
                             </li>
+                            <!--
                             <li class="nav-item">
                                 <a class="nav-link" href="#casi-chart-tab" data-toggle="tab">
                                     <i class="fas fa-chart-line"></i> Casi / 100K abitanti 
@@ -150,73 +151,79 @@
                                     <i class="fas fa-chart-bar"></i> Ospedalizzati / 100k abitanti
                                 </a>
                             </li>
+                            -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#accettati-chart-tab" data-toggle="tab">
+                                    <i class="fas fa-chart-bar"></i> Tamponi accettati
+                                </a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="#esiti-chart-tab" data-toggle="tab">
-                                    <i class="fas fa-chart-bar"></i> Tamponi IZSAM
+                                    <i class="fas fa-chart-bar"></i> Esiti tamponi
                                 </a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane active" id="andamento-chart-tab" role="tabpanel">
-                                <!-- div class="card bg-primary bg-dark text-white mb-3 custom-shadow"-->
-                                    <div class="mt-3 chart-grid">
-                                        <span style="height: 5px;"></span>
-                                        <div>
-                                            <canvas id="grafico-andamento-nazionale"></canvas>
-                                        </div>
-                                        <div>
-                                            <canvas id="grafico-andamento-abruzzo"></canvas>
-                                        </div>
+                                <div class="mt-0 chart-grid">
+                                    <span style="height: 1px;"></span>
+                                    <div>
+                                        <canvas id="grafico-andamento-nazionale"></canvas>
                                     </div>
-                                </!-->
+                                    <div>
+                                        <canvas id="grafico-andamento-abruzzo"></canvas>
+                                    </div>
+                                </div>                                
                             </div>
+
+                            <!--
                             <div class="tab-pane" id="casi-chart-tab" role="tabpanel">
-                                <!-- div class="card bg-primary bg-dark text-white mb-3 custom-shadow"-->
-                                    <div class="mt-3 chart-grid">
-                                        <div class="d-flex justify-content-center">
-                                            <select id="casi-region-select" class="selectpicker" 
-                                                data-style="btn-outline-info-dark text-white btn-sm" 
-                                                    data-live-search="true" multiple data-max-options="4"
-                                                    data-dropup-auto="false" data-width="50%" data-size="5"
-                                                    data-none-selected-text="Seleziona fino a 4 Regioni per il confronto">
-                                                <option value="abruzzo" selected>Abruzzo</option>
-                                                <option value="basilicata">Basilicata</option>
-                                                <option value="bolzano">P.A. Bolzano</option>
-                                                <option value="calabria">Calabria</option>
-                                                <option value="campania">Campania</option>
-                                                <option value="emilia" selected>Emilia-Romagna</option>
-                                                <option value="friuli">Friuli Venezia Giulia</option>
-                                                <option value="lazio">Lazio</option>
-                                                <option value="liguria">Liguria</option>
-                                                <option value="lombardia" selected>Lombardia</option>
-                                                <option value="marche">Marche</option>
-                                                <option value="molise">Molise</option>
-                                                <option value="piemonte">Piemonte</option>
-                                                <option value="puglia">Puglia</option>
-                                                <option value="sardegna">Sardegna</option>
-                                                <option value="sicilia">Sicilia</option>
-                                                <option value="toscana">Toscana</option>
-                                                <option value="trento">P.A. Trento</option>
-                                                <option value="umbria">Umbria</option>
-                                                <option value="valle_daosta">Valle d'Aosta</option>
-                                                <option value="veneto" selected>Veneto</option>
-                                            </select>
-                                            <button class="ml-1 btn btn-info-dark btn-sm" id="compare-regions-btn">Confronta</button>
-                                            <button class="ml-1 btn btn-info-dark btn-sm" id="reset-regions-btn">Reset</button>
-                                        </div>
-                                        <div>
-                                            <canvas id="grafico-casi-nazionale"></canvas>
-                                        </div>
-                                        <div>
-                                            <canvas id="grafico-casi-abruzzo"></canvas>
-                                        </div>
+                                
+                                <div class="mt-3 chart-grid">
+                                    <div class="d-flex justify-content-center">
+                                        <select id="casi-region-select" class="selectpicker" 
+                                            data-style="btn-outline-info-dark text-white btn-sm" 
+                                            data-live-search="true" multiple data-max-options="4"
+                                            data-dropup-auto="false" data-width="50%" data-size="5"
+                                            data-none-selected-text="Seleziona fino a 4 Regioni per il confronto">
+                                            <option value="abruzzo" selected>Abruzzo</option>
+                                            <option value="basilicata">Basilicata</option>
+                                            <option value="bolzano">P.A. Bolzano</option>
+                                            <option value="calabria">Calabria</option>
+                                            <option value="campania">Campania</option>
+                                            <option value="emilia" selected>Emilia-Romagna</option>
+                                            <option value="friuli">Friuli Venezia Giulia</option>
+                                            <option value="lazio">Lazio</option>                                                <option value="liguria">Liguria</option>
+                                            <option value="lombardia" selected>Lombardia</option>
+                                            <option value="marche">Marche</option>
+                                            <option value="molise">Molise</option>
+                                            <option value="piemonte">Piemonte</option>
+                                            <option value="puglia">Puglia</option>
+                                            <option value="sardegna">Sardegna</option>
+                                            <option value="sicilia">Sicilia</option>
+                                            <option value="toscana">Toscana</option>
+                                            <option value="trento">P.A. Trento</option>
+                                            <option value="umbria">Umbria</option>
+                                            <option value="valle_daosta">Valle d'Aosta</option>
+                                            <option value="veneto" selected>Veneto</option>
+                                        </select>
+                                        <button class="ml-1 btn btn-info-dark btn-sm" id="compare-regions-btn">Confronta</button>
+                                        <button class="ml-1 btn btn-info-dark btn-sm" id="reset-regions-btn">Reset</button>
                                     </div>
-                                </!-->
+                                    <div>
+                                        <canvas id="grafico-casi-nazionale"></canvas>
+                                    </div>
+                                    <div>
+                                        <canvas id="grafico-casi-abruzzo"></canvas>
+                                    </div>
+                                </div>
                             </div>
-                            
+                            -->
+
+                            <!-- 
                             <div class="tab-pane" id="hospitals-chart-tab" role="tabpanel">
-                                <!-- div class="card bg-primary bg-dark text-white mb-3 custom-shadow"-->
                                     <div class="mt-3 chart-grid-quad">
                                         <div class="pie-legend d-flex d-flex-rows justify-content-center">
                                             <div style="height: 20px; width: 20px; background-color: #4285F4;"></div>&nbsp;
@@ -239,8 +246,10 @@
                                             <canvas id="grafico-hosp-lombardia"></canvas>
                                         </div>
                                     </div>
-                                </!-->
                             </div>
+                            -->
+
+                            <!-- 
                             <div class="tab-pane" id="hospitals-100k-chart-tab" role="tabpanel">
                                 <div class="mt-3 chart-grid-mono">
                                     <div>
@@ -251,6 +260,32 @@
                                     </div>
                                 </div>
                             </div>
+                            -->
+
+                            <div class="tab-pane" id="accettati-chart-tab" role="tabpanel">
+                                <div class="mt-3">
+                                    <div>
+                                        <span class="mb-1 font-italic">Tamponi accettati, per Azienda Sanitaria</span><br/>
+                                        <table id="accettati-table" class="table table-sm table-dark table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <td>Richiedente</td>
+                                                    <td>In corso</td>
+                                                    <td>Esaminati</td>
+                                                    <td>Totale</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    <div style="position:relative; width:48vw; height:42vh;">
+                                        <canvas id="grafico-tamponi-conferiti"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="tab-pane" id="esiti-chart-tab" role="tabpanel">
                                 <div class="mt-3 chart-grid">
                                     <div class="d-flex flex-direction-column justify-content-center">
