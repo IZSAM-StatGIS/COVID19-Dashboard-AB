@@ -55,7 +55,7 @@ const tamponiIZSChartFn = function(prov){
             options: {
                 title: {
                     display: true,
-                    text: 'Positivi',
+                    text: 'Positivi per data prelievo',
                     fontSize: 14,
                     fontColor: '#FFF'
                 },
@@ -116,7 +116,7 @@ const tamponiIZSChartFn = function(prov){
             options: {
                 title: {
                     display: true,
-                    text: 'Negativi',
+                    text: 'Negativi per data prelievo',
                     fontSize: 14,
                     fontColor: '#FFF'
                 },
