@@ -7,7 +7,7 @@ import lodash from 'lodash'
 var tamponiConferitiChart;
 const tamponiConferitiChartFn = () => {
     
-    axios.get('https://covid19-it-api.herokuapp.com/asl/daily').then(function(response){
+    axios.get('https://covid19-it-api.herokuapp.com/esiti/asl/daily').then(function(response){
         const data = response.data
 
         data.sort(function(a,b){

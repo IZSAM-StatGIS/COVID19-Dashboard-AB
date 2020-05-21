@@ -376,7 +376,7 @@ const getProvincesDistribution = function(aggiornamento){
 // Get ASL Data
 // ************************************************************
 const getAslSummary = () => {
-    axios.get(apiUrl+'/asl/totals').then(function(response){
+    axios.get(apiUrl+'/esiti/asl/totals').then(function(response){
         // console.log(response.data)
         response.data.forEach(d => {
             var richiedente = ''
