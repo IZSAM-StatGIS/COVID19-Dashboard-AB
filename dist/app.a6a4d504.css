@@ -10814,19 +10814,19 @@ widgets {
   .chart-container-1 {
     position: relative;
     width: 48vw;
-    height: 35vh;
+    height: 34vh;
   }
 
   .chart-container-2 {
     position: relative;
     width: 48vw;
-    height: 46vh;
+    height: 44vh;
   }
 
   .chart-container-3 {
     position: relative;
     width: 47vw;
-    height: 33vh;
+    height: 32vh;
   }
 }
 .ol-control {

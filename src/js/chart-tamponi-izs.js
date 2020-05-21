@@ -16,25 +16,48 @@ const tamponiIZSChartFn = function(prov){
         prov = 'TE,PE,CH,AQ'
     }
 
-    axios.get('https://covid19-it-api.herokuapp.com/comuni',{ params:{
+    axios.get('https://covid19-it-api.herokuapp.com/esiti/prov/daily',{ params:{
         sigla_prov: prov
     } }).then(function(response){
+        const data = response.data
+
+        var date_groups = lodash.groupBy(data,'DATA_TAMPONE')
+        // console.log(date_groups)
         
-        var grouped = lodash.groupBy(response.data,"DATA_TAMPONE")
-        // console.log(grouped)
+        // Data integration
+        const prov_array = ['AQ','CH','PE','TE']
+        prov_array.forEach(prov => {
+            lodash.forEach(date_groups,function(item, key){
+                var contains_prov = lodash.filter(item,(o) => { return o.PROVINCIA == prov })
+                if (contains_prov.length < 1){
+                    item.push({'AGGIORNAMENTO':'','DATA_TAMPONE':key, 'PROVINCIA':prov, 'POSITIVI':0, 'NEGATIVI':0, 'DA_RIPETERE':0 })
+                }
+            })
+        })
+        // console.log(date_groups)
+
+        var labels = lodash.map(date_groups, (item,key) => { return moment(key).format('DD MMM') })
         var negativi_dataset = []
         var positivi_dataset = []
-        var dates = []
-
-        lodash.forEach(grouped,function(item, key){
-            dates.push(moment(key).locale('it').format('DD MMM'))
-            negativi_dataset.push(item.filter( e => e.ESITO == "NEG").length)
-            positivi_dataset.push(item.filter( e => e.ESITO == "POS").length)
+        
+        lodash.forEach(date_groups,function(item, key){
+            // Populate dataset negativi
+            let sum_negativi = item.reduce((total, currentValue) => {
+                return total + currentValue.NEGATIVI;
+            }, 0);    
+            negativi_dataset.push(sum_negativi) 
+            // Populate dataset positivi
+            let sum_positivi = item.reduce((total, currentValue) => {
+                return total + currentValue.POSITIVI;
+            }, 0);    
+            positivi_dataset.push(sum_positivi) 
+            
+            
         })
-
-        negativi_dataset.reverse()
-        positivi_dataset.reverse()
-        dates.reverse()
+        
+        // console.log(labels)
+        // console.log(negativi_dataset)
+        // console.log(positivi_dataset)
 
         // Grafico positivi
         var ctx_pos = document.getElementById('grafico-tamponi-positivi').getContext('2d');
@@ -43,7 +66,7 @@ const tamponiIZSChartFn = function(prov){
         tamponiIZSChartPos = new Chart(ctx_pos, {
             type: 'bar',
             data: {
-                labels: dates,
+                labels: labels,
                 datasets: [{
                     label: 'Tamponi positivi',
                     fill: false,
@@ -104,7 +127,7 @@ const tamponiIZSChartFn = function(prov){
         tamponiIZSChartNeg = new Chart(ctx_neg, {
             type: 'bar',
             data: {
-                labels: dates,
+                labels: labels,
                 datasets: [{
                     label: 'Tamponi negativi',
                     fill: false,
