@@ -67,6 +67,7 @@ widgets {
     .chart-container-1 { position: relative; width:94vw; height:70vh; }
     .chart-container-2 { position: relative; width:94vw; height:90vh; }
     .chart-container-3 { position: relative; width:94vw; height:50vh; }
+    .chart-container-4 { position: relative; width:94vw; height:70vh; }
 }
 
 
@@ -150,6 +151,7 @@ widgets {
     .chart-container-1 { position: relative; width:45vw; height:32vh; }
     .chart-container-2 { position: relative; width:45vw; height:35vh; }
     .chart-container-3 { position: relative; width:45vw; height:29vh; }
+    .chart-container-4 { position: relative; width:47vw; height:60vh; }
 }
 
 @media only screen and (min-device-width : 1440px) {
@@ -160,6 +162,7 @@ widgets {
     .chart-container-1 { position: relative; width:45vw; height:34vh; }
     .chart-container-2 { position: relative; width:45vw; height:42vh; }
     .chart-container-3 { position: relative; width:45vw; height:31.5vh; }
+    .chart-container-4 { position: relative; width:47vw; height:65vh; }
 }
 
 @media only screen and (min-device-width : 1920px) and (min-device-height:1080px) {
@@ -167,4 +170,5 @@ widgets {
     .chart-container-1 { position: relative; width:48vw; height:34vh; }
     .chart-container-2 { position: relative; width:48vw; height:44vh; }
     .chart-container-3 { position: relative; width:47vw; height:32vh; }
+    .chart-container-4 { position: relative; width:47vw; height:70vh; }
 }

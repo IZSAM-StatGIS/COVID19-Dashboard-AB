@@ -4,7 +4,7 @@ import Map from 'ol/Map'
 import View from 'ol/View'
 import {defaults as defaultControls, Attribution} from 'ol/control'
 import {fromLonLat, getTransform} from 'ol/proj'
-import {applyTransform} from 'ol/extent'
+// import {applyTransform} from 'ol/extent'
 import {Tile as TileLayer} from 'ol/layer'
 import GeoJSON from 'ol/format/GeoJSON'
 import VectorImageLayer from 'ol/layer/VectorImage'
@@ -21,12 +21,13 @@ import chroma from 'chroma-js'
 import $ from 'jquery'
 
 import { andamentoChartNazFn, andamentoChartAbrFn } from './chart-andamento'
-import { casiChartNazFn, casiChartAbrFn } from './chart-totale-casi-100k'
+// import { casiChartNazFn, casiChartAbrFn } from './chart-totale-casi-100k'
 import { tamponiConferitiChartFn } from './chart-tamponi-conferiti-izs'
 import { tamponiIZSChartFn } from './chart-tamponi-izs'
-import { hospitalChartFn } from './chart-ospedalizzazione'
-import { hosp100kFn } from './chart-ospedalizzazione-100k'
-import { tamponiConferitiFn } from './chart-tamponi-conferiti-izs'
+import { tempiRefertazioneChartFn } from './chart-tempi-refertazione'
+// import { hospitalChartFn } from './chart-ospedalizzazione'
+// import { hosp100kFn } from './chart-ospedalizzazione-100k'
+// import { tamponiConferitiFn } from './chart-tamponi-conferiti-izs'
 
 // Cluster Style
 var getClusterLabel = function(feature){
@@ -405,6 +406,7 @@ const getAslSummary = () => {
 
 getAslSummary()
 tamponiConferitiChartFn()
+tempiRefertazioneChartFn()
 
 // Get COVID19 Municipalities Data
 // ************************************************************

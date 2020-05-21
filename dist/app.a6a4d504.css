@@ -10683,6 +10683,12 @@ widgets {
     width: 94vw;
     height: 50vh;
   }
+
+  .chart-container-4 {
+    position: relative;
+    width: 94vw;
+    height: 70vh;
+  }
 }
 @media only screen and (min-device-width: 1280px) {
   body {
@@ -10781,6 +10787,12 @@ widgets {
     width: 45vw;
     height: 29vh;
   }
+
+  .chart-container-4 {
+    position: relative;
+    width: 47vw;
+    height: 60vh;
+  }
 }
 @media only screen and (min-device-width: 1440px) {
   .card-data {
@@ -10809,6 +10821,12 @@ widgets {
     width: 45vw;
     height: 31.5vh;
   }
+
+  .chart-container-4 {
+    position: relative;
+    width: 47vw;
+    height: 65vh;
+  }
 }
 @media only screen and (min-device-width: 1920px) and (min-device-height: 1080px) {
   .chart-container-1 {
@@ -10827,6 +10845,12 @@ widgets {
     position: relative;
     width: 47vw;
     height: 32vh;
+  }
+
+  .chart-container-4 {
+    position: relative;
+    width: 47vw;
+    height: 70vh;
   }
 }
 .ol-control {
