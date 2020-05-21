@@ -21,6 +21,10 @@ const tamponiIZSChartFn = function(prov){
     } }).then(function(response){
         const data = response.data
 
+        data.sort(function(a,b){
+            return new Date(b.DATA_TAMPONE) - new Date(a.DATA_TAMPONE);
+        }).reverse()
+
         var date_groups = lodash.groupBy(data,'DATA_TAMPONE')
         // console.log(date_groups)
         
