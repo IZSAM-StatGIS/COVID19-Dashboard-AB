@@ -14,7 +14,7 @@ const tempiRefertazioneChartFn = () => {
         console.log(labels)
 
         // Color scale
-        var scale = chroma.scale('RdYlGn').domain([10,0]);
+        var scale = chroma.scale('RdYlGn').domain([5,0]);
 
         // Datasets
         var datasets   = []
