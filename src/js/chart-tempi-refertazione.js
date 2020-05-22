@@ -34,7 +34,7 @@ const tempiRefertazioneChartFn = () => {
         if (tempiRerertazioneChart) { tempiRerertazioneChart.destroy(); }
     
         tempiRerertazioneChart = new Chart(ctx, {
-            type: 'horizontalBar',
+            type: 'horizontalBar', // doughnut
             data: {
                 labels:labels,
                 datasets: [{
