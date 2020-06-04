@@ -10653,6 +10653,12 @@ widgets {
   height: 28vh;
 }
 
+.chart-container-4 {
+  position: relative;
+  width: 90vw;
+  height: 46vh;
+}
+
 @media only screen and (min-device-width: 650px) {
   body {
     grid-template-rows: 75px minmax(100vh, 1fr) 190px minmax(70vh, 1fr);
