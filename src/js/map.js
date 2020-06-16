@@ -452,6 +452,78 @@ const getComuniDistribution = function(aggiornamento){
     })
 }
 
+// Get Serological Test Data
+// ************************************************************
+const getSerologicalSummary = () => {
+
+    var tot_in_corso, tot_positivi, tot_negativi, tot_asl;
+    var tot_conv_in_corso, tot_conv_positivi, tot_conv_negativi, tot_convenzionati;
+
+    axios.get(apiUrl+'/esami/sierologici',{
+        params:{
+            conv: 'N'
+        }
+    }).then(function(response){
+        // console.log(response.data)
+        response.data.forEach(d => {
+            var richiedente = ''
+            if (d.ASL_RICHIEDENTE == 'AQ'){
+                richiedente = "AUSL 1 - L'Aquila"
+            } else if (d.ASL_RICHIEDENTE == 'CH'){
+                richiedente = "AUSL 2 - Chieti, Lanciano, Vasto"
+            } else if (d.ASL_RICHIEDENTE == 'PE'){
+                richiedente = "AUSL 3 - Pescara"
+            } else {
+                richiedente = "AUSL 4 - Teramo"
+            }
+            // Alt+9 to do the backthick 
+            var TOT = d.IN_CORSO + d.NEGATIVI + d.POSITIVI
+            var tr = `<tr><td>${richiedente}</td><td>${d.IN_CORSO}</td><td>${d.NEGATIVI}</td><td>${d.POSITIVI}</td><td>${TOT}</td></tr>`
+            $('#sierologici-table').find('tbody').append(tr);
+        })
+
+        // Sum values for variables
+        
+        tot_in_corso = response.data.reduce((a,b) => a + b.IN_CORSO, 0)
+        tot_negativi = response.data.reduce((a,b) => a + b.NEGATIVI, 0)
+        tot_positivi = response.data.reduce((a,b) => a + b.POSITIVI, 0)
+        tot_asl = tot_in_corso + tot_negativi + tot_positivi
+        var last_row = `<tr><td>Totale AUSL Abruzzo</td><td>${tot_in_corso}</td><td>${tot_negativi}</td><td>${tot_positivi}</td><td>${tot_asl}</td></tr>`
+        $('#sierologici-table').find('tbody').append(last_row);
+
+        // In convenzione
+        axios.get(apiUrl+'/esami/sierologici',{
+            params:{
+                conv: 'Y'
+            }
+        }).then(function(response){
+            console.log(response.data)
+            tot_conv_in_corso = response.data.reduce((a,b) => a + b.IN_CORSO, 0)
+            tot_conv_negativi = response.data.reduce((a,b) => a + b.NEGATIVI, 0)
+            tot_conv_positivi = response.data.reduce((a,b) => a + b.POSITIVI, 0)
+            tot_convenzionati = tot_conv_in_corso + tot_conv_negativi + tot_conv_positivi
+            var conv_row = `<tr><td>Richiedente in convenzione</td><td>${tot_conv_in_corso}</td><td>${tot_conv_negativi}</td><td>${tot_conv_positivi}</td><td>${tot_convenzionati}</td></tr>`
+            $('#sierologici-table').find('tbody').append(conv_row);
+
+            // Riga totale complessivo
+            var tot_complessivo_in_corso = tot_in_corso + tot_conv_in_corso;
+            var tot_complessivo_positivi = tot_positivi + tot_conv_positivi;
+            var tot_complessivo_negativi = tot_negativi + tot_conv_negativi;
+            var tot_complessivo = tot_complessivo_in_corso + tot_complessivo_positivi + tot_complessivo_negativi;
+
+            var complessivo_row = `<tr><td>Totale complessivo</td><td>${tot_complessivo_in_corso}</td><td>${tot_complessivo_negativi}</td><td>${tot_complessivo_positivi}</td><td>${tot_complessivo}</td></tr>`
+            $('#sierologici-table').find('tbody').append(complessivo_row);
+        })
+
+
+        
+
+        
+    })
+}
+
+getSerologicalSummary()
+
 // Layer switcher
 const layerBtn = document.querySelector("#layer-btn")
 const layerPanel = document.querySelector("#layer-panel")

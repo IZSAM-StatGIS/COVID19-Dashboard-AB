@@ -87,7 +87,7 @@ const tempiRefertazioneChartFn = () => {
                             }
                         },
                         formatter: function(value, context) {
-                            return (value*100/tot_esaminati).toFixed(2)+'%';
+                            return (value*100/tot_esaminati).toFixed(3)+'%';
                         }
                     }
                 }

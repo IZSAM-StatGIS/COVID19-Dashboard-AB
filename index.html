@@ -169,6 +169,12 @@
                                     <i class="far fa-clock"></i> Tempi di refertazione
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#esami-sierologici-tab" data-toggle="tab">
+                                    <i class="fas fa-flask"></i> Esami sierologici
+                                </a>
+                            </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -319,6 +325,28 @@
                             <div class="tab-pane" id="tempi-refertazione-chart-tab" role="tabpanel">
                                 <div class="chart-container-4 chart-spacing ml-3 mt-3">
                                     <canvas id="grafico-tempi-refertazione"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="esami-sierologici-tab" role="tabpanel">
+                                <div class="mt-3">
+                                    <div>
+                                        <span class="mb-1 font-italic">Campioni accettati ed esaminati, per richiedente (Azienda Sanitaria o richiedente in convenzione)</span><br/>
+                                        <table id="sierologici-table" class="table table-sm table-dark table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <td>Richiedente</td>
+                                                    <td>In corso</td>
+                                                    <td>Negativi</td>
+                                                    <td>Positivi</td>
+                                                    <td>Totale</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
                                 </div>
                             </div>
 
