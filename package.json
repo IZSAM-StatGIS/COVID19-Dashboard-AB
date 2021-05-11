@@ -39,7 +39,7 @@
     "chartjs-plugin-zoom": "^0.7.5",
     "chroma-js": "^2.1.0",
     "jquery": "^3.5.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "material-design-icons": "^3.0.1",
     "mathjs": "^6.6.2",
     "moment": "^2.24.0",
