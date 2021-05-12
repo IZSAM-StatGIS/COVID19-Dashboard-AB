@@ -41,7 +41,7 @@
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
     "material-design-icons": "^3.0.1",
-    "mathjs": "^6.6.2",
+    "mathjs": "^7.5.1",
     "moment": "^2.24.0",
     "ol": "^6.3.1",
     "popper.js": "^1.16.1"
